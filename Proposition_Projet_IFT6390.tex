@@ -1,4 +1,4 @@
-\documentclass[11pt,letterpaper]{article}
+\documentclass[12pt,letterpaper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[francais]{babel}
 \usepackage[T1]{fontenc}
@@ -14,9 +14,6 @@
 
 % URL
 \usepackage{url}
-
-% Permet de cross-out un morceau d'une equation dans textmode et mathmode sauf \cancelto{\infty}{} qui fonctionne juste en mathmode
-\usepackage[makeroom]{cancel}
 
 \usepackage{hyperref}
 
@@ -57,9 +54,9 @@
 % Changement du style de mise en page
 	\pagestyle{fancy}
 	\fancyhf{}
- 	\fancyhead[L]{\sigleCours \ - \TypeRemise}
+ 	\fancyhead[L]{\sigleCours \\ - \TypeRemise}
  	\fancyhead[C]{--- \CoUn --- \\ --- \CoDeux ---}
- 	\fancyhead[R]{\dateremise}
+ 	\fancyhead[R]{Remise \\ \dateremise}
 
  %-----------------------------------------------------------------
  % Modifier style du numéro de page
@@ -67,7 +64,30 @@
 
 
 \begin{document}
-L'objectif de ce projet est, dans un premier temps, de comparer l'efficacité d'un classifieur de bayes combiné à un arbre de décision dans lequel les feuilles corresponderaient aux densités conjointes de paires d'attributs avec (autre algorithme). Cette comparaison aura pour support l'échantillon des données de prédiction des salaires. En un deuxième temps, nous utiliserons un réseau de neurones afin d'étudier l'échantillon MNIST et tenter d'obtenir un modèle permettant de classifier les images en fonction des lettres de l'alphabet.
+L'objectif de ce projet est, dans un premier temps, de comparer l'efficacité
+d'un classifieur de bayes combiné à un arbre de décision dans lequel les
+feuilles corresponderaient aux densités conjointes de paires d'attributs avec
+\textbf{(autre algorithme)}. Cette comparaison aura pour support l'échantillon des
+données de prédiction des salaires. Nous sommes motivé par la possibilité d'étudier 
+un type de modèle considérant des densités conjointes et dont l'objectif est 
+d'optimiser la matrice de variance-covariance des divers attributs. Cet exercise 
+nous permettera de plus de comparer l'efficacité d'un modèle dont les densités 
+sont des convolutions sans supposer explicitement la dépendance entre les 
+attributs avec l'efficacité d'un modèle utilisant une astuce de noyau plus classique. \\
+
+En deuxième temps, nous utiliserons un réseau de neurones afin d'étudier 
+l'échantillon MNIST et tenter d'obtenir un modèle permettant de classifier les 
+images en fonction de symboles numériques. Cette base de données et ce choix 
+d'algorithme sont très importants car c'est une base de données simple, déjà 
+structurée et formattée, permettant de tester des techniques de reconnaissance 
+de motifs. Ces modèles, une fois testés sur cette base de données sont 
+généralisables à d'autre type de reconnaissance de motifs plus complexes. 
+La reconnaissance de motif est très intéressante car les 
+applications sont presque illimitées. Une application potentielle est la 
+reconnaissance de motifs de chaleur précurseurs à un feu de forêt grâce à 
+l'imagerie satélite, application très appropriée au Canada où ce genre 
+d'évènement fait rage. \\
+
 
 \section{Algorithmes}
 
@@ -88,8 +108,13 @@ régions d'une image.
 \section{Bases de données}
 \subsection{\href{http://archive.ics.uci.edu/ml/datasets/Adult}{Prédiction du salaire}}
 
-Cette base de données est destinée à prédire si une personne choisie gagne plus de $50 000$\$ annuellement. Cette base de données est constituée de 14 attributs (6 dont la distribution est continu et 8 dont les valeurs sont catégoritielle)
-et d'une sortie $y \in \left( >50K, <=50K \right)$. Elle contient $48842$ observations, dont certaines sont manquantes, recueillies aux États-Unis en 1994.
+Cette base de données est destinée à prédire si une personne gagne plus
+de $50 000$\$ annuellement. Cette base de données est constituée de 14 attributs
+(6 dont la distribution est continue et 8 dont les valeurs sont catégorielles)
+et d'une sortie $y \in \left( >50K, <=50K \right)$. Elle contient $48 842$
+observations, dont certaines sont manquantes, recueillies aux États-Unis en
+1994. Cette base de données a l'avantage d'être déjà structurée et d'avoir des
+attributs bien définis.
 
 % --------------------------------------------------------------------------------
 \subsection{\href{http://yann.lecun.com/exdb/mnist/}{MNIST}}
@@ -97,6 +122,6 @@ et d'une sortie $y \in \left( >50K, <=50K \right)$. Elle contient $48842$ observ
 MNIST est une base de donnée d'image de numéros décimaux écrits à la main
 contenant 60000 exemplaires d'entraînement et 10000 exemplaires de test. Il a
 été très populaire et a été très utilisé pour évaluer la performance de
-généralisation de réseaux de neurones.
+généralisation de réseaux de neurones. 
 
 \end{document}
