@@ -1,0 +1,102 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsbsy}
+\usepackage{color}
+\usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\usepackage{dsfont}
+%Permet d'afficher la page de référence dans la ToC
+
+% URL
+\usepackage{url}
+
+% Permet de cross-out un morceau d'une equation dans textmode et mathmode sauf \cancelto{\infty}{} qui fonctionne juste en mathmode
+\usepackage[makeroom]{cancel}
+
+\usepackage{hyperref}
+
+\usepackage{multicol}
+
+% Modification du format des numéros de pages.
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+%-----------------------------------------------------------------
+%-----------------------------------------------------------------
+% INFORMATIONS À REMPLIR
+
+\newcommand{\TypeRemise}{Proposition de Projet}
+\newcommand{\sigleCours}{IFT6390}
+\newcommand{\titreCours}{Fondements de l'apprentissage machine}
+
+% Coéquipier UN
+\newcommand{\PrenomUn}{Gabriel}
+\newcommand{\NomUn}{Lemyre}
+
+% Coéquipier DEUX
+\newcommand{\PrenomDeux}{Guillaume}
+\newcommand{\NomDeux}{Poirier-Morency}
+
+\newcommand{\PrenomProf}{Aaron}
+\newcommand{\NomFamilleProf}{Courville}
+
+\newcommand{\dateremise}{14 novembre 2017}
+
+%-----------------------------------------------------------------
+
+\newcommand{\CreateurNom}[2]{#1 \textsc{#2}\ }
+\newcommand{\CoUn}{\CreateurNom{\PrenomUn}{\NomUn}}
+\newcommand{\CoDeux}{\CreateurNom{\PrenomDeux}{\NomDeux}}
+\newcommand{\NomProf}{\CreateurNom{\PrenomProf}{\NomFamilleProf}}
+
+%-----------------------------------------------------------------
+% Changement du style de mise en page
+	\pagestyle{fancy}
+	\fancyhf{}
+ 	\fancyhead[L]{\sigleCours \ - \TypeRemise}
+ 	\fancyhead[C]{--- \CoUn --- \\ --- \CoDeux ---}
+ 	\fancyhead[R]{\dateremise}
+
+ %-----------------------------------------------------------------
+ % Modifier style du numéro de page
+\rfoot{\vspace*{-2em} Page \thepage}
+
+
+\begin{document}
+L'objectif de ce projet est, dans un premier temps, de comparer l'efficacité d'un classifieur de bayes combiné à un arbre de décision dans lequel les feuilles corresponderaient aux densités conjointes de paires d'attributs avec (autre algorithme). Cette comparaison aura pour support l'échantillon des données de prédiction des salaires. En un deuxième temps, nous utiliserons un réseau de neurones afin d'étudier l'échantillon MNIST et tenter d'obtenir un modèle permettant de classifier les images en fonction des lettres de l'alphabet.
+
+\section{Algorithmes}
+
+Le classifieur de Bayes nous intéresse beaucoup, car il offre un bon framework
+pour expérimenter divers modèle de densité à priori et par conséquent d'astuce
+de noyau. De plus, la variante naïve est une bonne base de référence pour
+comparer les modèle d'apprentissage statistique.
+
+Le modèle de Bayes se base en deux temps:
+
+Nous avons choisi le modèle de réseau de neurone convolutionnel d'une part pour
+sa popularité et aussi pour mettre en pratique et explorer des outils comme
+PyTorch.
+
+Les modèle de convolution consiste à combiner l'information de plusieurs
+régions d'une image.
+
+\section{Bases de données}
+\subsection{\href{http://archive.ics.uci.edu/ml/datasets/Adult}{Prédiction du salaire}}
+
+Cette base de données est destinée à prédire si une personne choisie gagne plus de $50 000$\$ annuellement. Cette base de données est constituée de 14 attributs (6 dont la distribution est continu et 8 dont les valeurs sont catégoritielle)
+et d'une sortie $y \in \left( >50K, <=50K \right)$. Elle contient $48842$ observations, dont certaines sont manquantes, recueillies aux États-Unis en 1994.
+
+% --------------------------------------------------------------------------------
+\subsection{\href{http://yann.lecun.com/exdb/mnist/}{MNIST}}
+
+MNIST est une base de donnée d'image de numéros décimaux écrits à la main
+contenant 60000 exemplaires d'entraînement et 10000 exemplaires de test. Il a
+été très populaire et a été très utilisé pour évaluer la performance de
+généralisation de réseaux de neurones.
+
+\end{document}
