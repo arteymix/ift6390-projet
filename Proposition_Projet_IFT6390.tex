@@ -96,14 +96,31 @@ pour expérimenter divers modèle de densité à priori et par conséquent d'ast
 de noyau. De plus, la variante naïve est une bonne base de référence pour
 comparer les modèle d'apprentissage statistique.
 
-Le modèle de Bayes se base en deux temps:
+Le modèle de Bayes se base en deux temps: on estime une densité à priori sur la
+classe $P[y^i = c_j]$ et ensuite on ajoute l'information sur l'exemplaire
+$P[y^i = c_j | x^i]$ et on utilise la règle de Bayes pour calculer la
+probabilité à postériori. Pour classifier, on choisit la classe qui a la plus
+grande probabilité.
+
+Un arbre de décision est un algorithme permettant de classifier un exemplaire
+en suivant des arcs étiquetés par des prédicats sur ses attributs. Les feuilles
+contiennent la classe.  Les attributs sont choisis en fonction d'une métrique.
+Par exemple, on pourrait chercher à maximiser le gain d'information (i.e.
+différence d'entropie) résultant du choix d'un attribut.
+
+En combinant arbres de décision et classification Bayésienne, nous voulons
+construire un arbre sur les attributs catégoriques qui minise la covariance des
+partitions résultantes de telle sorte qu'il devienne possible d'appliquer
+l'hypothèse d'indépendances. On estimera des densités par maximum de
+vraisemblance pour chaque feuille et on pourra calculer notre priori en prenant
+le produit des distributions marginales des attributs.
 
 Nous avons choisi le modèle de réseau de neurone convolutionnel d'une part pour
 sa popularité et aussi pour mettre en pratique et explorer des outils comme
 PyTorch.
 
-Les modèle de convolution consiste à combiner l'information de plusieurs
-régions d'une image.
+Les modèle de réseau à convolution consiste à combiner l'information locale
+d'une image [\dots]
 
 \section{Bases de données}
 \subsection{\href{http://archive.ics.uci.edu/ml/datasets/Adult}{Prédiction du salaire}}
