@@ -65,28 +65,26 @@
 
 \begin{document}
 L'objectif de ce projet est, dans un premier temps, de comparer l'efficacité
-d'un classifieur de bayes combiné à un arbre de décision dans lequel les
+d'un classifieur de Bayes combiné à un arbre de décision dans lequel les
 feuilles corresponderaient aux densités conjointes de paires d'attributs avec
 \textbf{(autre algorithme)}. Cette comparaison aura pour support l'échantillon des
-données de prédiction des salaires. Nous sommes motivé par la possibilité d'étudier 
-un type de modèle considérant des densités conjointes et dont l'objectif est 
-d'optimiser la matrice de variance-covariance des divers attributs. Cet exercise 
-nous permettera de plus de comparer l'efficacité d'un modèle dont les densités 
-sont des convolutions sans supposer explicitement la dépendance entre les 
+données de prédiction des salaires. Nous sommes motivé par la possibilité d'étudier
+un type de modèle considérant des densités conjointes et dont l'objectif est
+d'optimiser la matrice de variance-covariance des divers attributs. Cet exercise
+nous permettera de plus de comparer l'efficacité d'un modèle dont les densités
+sont des convolutions sans supposer explicitement la dépendance entre les
 attributs avec l'efficacité d'un modèle utilisant une astuce de noyau plus classique. \\
 
-En deuxième temps, nous utiliserons un réseau de neurones afin d'étudier 
-l'échantillon MNIST et tenter d'obtenir un modèle permettant de classifier les 
-images en fonction de symboles numériques. Cette base de données et ce choix 
-d'algorithme sont très importants car c'est une base de données simple, déjà 
-structurée et formattée, permettant de tester des techniques de reconnaissance 
-de motifs. Ces modèles, une fois testés sur cette base de données sont 
-généralisables à d'autre type de reconnaissance de motifs plus complexes. 
-La reconnaissance de motif est très intéressante car les 
-applications sont presque illimitées. Une application potentielle est la 
-reconnaissance de motifs de chaleur précurseurs à un feu de forêt grâce à 
-l'imagerie satélite, application très appropriée au Canada où ce genre 
-d'évènement fait rage. \\
+En deuxième temps, nous utiliserons un réseau de neurones convolutif afin
+d'étudier l'échantillon MNIST et tenter d'obtenir un modèle permettant de
+classifier les images représentant des symboles numériques manuscrits. Cette
+base de données et ce choix d'algorithme sont très importants car c'est une
+collection d'images simple, déjà structurée et formattée, permettant de tester
+des techniques de reconnaissance de motifs. Ces modèles sont généralisables à
+d'autre problèmes et ses applications sont quasi illimitées. Une application
+potentielle serait la reconnaissance de motifs de chaleur précurseurs à un feu
+de forêt grâce à l'imagerie satellite, une application très appropriée au
+Canada où ce genre d'évènement fait rage. \\
 
 
 \section{Algorithmes}
@@ -100,7 +98,7 @@ Le modèle de Bayes se base en deux temps: on estime une densité à priori sur 
 classe $P[y^i = c_j]$ et ensuite on ajoute l'information sur l'exemplaire
 $P[y^i = c_j | x^i]$. On utilise la règle de Bayes pour calculer la probabilité
 à postériori. Finalement, on choisit la classe $c_j$ associée à la plus grande
-probabilité.
+probabilité.  \\
 
 Un arbre de décision est un algorithme permettant de classifier un exemplaire
 en suivant des arcs étiquetés par des prédicats sur ses attributs. Les feuilles
@@ -113,7 +111,7 @@ construire un arbre sur les attributs catégoriques qui minise la covariance des
 partitions résultantes de telle sorte qu'il devienne possible d'appliquer
 l'hypothèse d'indépendance. On estimera des densités par maximum de
 vraisemblance pour chaque feuille et on pourra calculer notre priori en prenant
-le produit des distributions marginales des attributs.
+le produit des distributions marginales des attributs.  \\
 
 Nous avons choisi le modèle de réseau de neurone convolutionnel d'une part pour
 sa popularité et aussi pour mettre en pratique et explorer des outils comme
@@ -121,8 +119,15 @@ PyTorch. Le modèle de réseau convolutif consiste à combiner l'information
 locale d'une image en appliquant le même réseau de neurone sur différentes
 régions et de mettre en commun le résultat pour construire une représentation
 plus compacte.  L'avantage de ce type de réseau est qu'il est invariant aux
-translations des caractéristiques de l'image d'entrée puisque chaque portion
-est traitée de manière identique.
+translations des caractéristiques de l'image d'entrée et qu'il nécessite peu de
+pré-traitement puisqu'il construit lui-même une bonne représentation de
+l'image.
+
+Nous allons également explorer la possiblité d'utiliser des auto-encoders pour
+traiter l'image. Une approche serait d'associer aux éléments d'une classe une
+permutation aléatoire d'exemplaires à reproduire de sorte que l'encodeur ne
+puisse se contenter d'apprendre la fonction identité, mais plutôt une
+représentation intermédiaire utile.
 
 \section{Bases de données}
 \subsection{\href{http://archive.ics.uci.edu/ml/datasets/Adult}{Prédiction du salaire}}
@@ -140,7 +145,7 @@ attributs bien définis.
 
 MNIST est une base de donnée d'image de numéros décimaux écrits à la main
 contenant 60000 exemplaires d'entraînement et 10000 exemplaires de test. Elle a
-été très populaire dans les années 1990 et a été très utilisé pour évaluer la performance de
-généralisation de réseaux de neurones.
+été très populaire au début des années 2000 et est encore utilisée utilisé de
+nos jours pour évaluer la performance de généralisation de réseaux de neurones.
 
 \end{document}
