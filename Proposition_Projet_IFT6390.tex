@@ -98,29 +98,31 @@ comparer les modèle d'apprentissage statistique.
 
 Le modèle de Bayes se base en deux temps: on estime une densité à priori sur la
 classe $P[y^i = c_j]$ et ensuite on ajoute l'information sur l'exemplaire
-$P[y^i = c_j | x^i]$ et on utilise la règle de Bayes pour calculer la
-probabilité à postériori. Pour classifier, on choisit la classe qui a la plus
-grande probabilité.
+$P[y^i = c_j | x^i]$. On utilise la règle de Bayes pour calculer la probabilité
+à postériori. Finalement, on choisit la classe $c_j$ associée à la plus grande
+probabilité.
 
 Un arbre de décision est un algorithme permettant de classifier un exemplaire
 en suivant des arcs étiquetés par des prédicats sur ses attributs. Les feuilles
-contiennent la classe.  Les attributs sont choisis en fonction d'une métrique.
+contiennent la classe. Les attributs sont choisis en fonction d'une métrique.
 Par exemple, on pourrait chercher à maximiser le gain d'information (i.e.
 différence d'entropie) résultant du choix d'un attribut.
 
-En combinant arbres de décision et classification Bayésienne, nous voulons
+En combinant arbre de décision et classification Bayésienne, nous voulons
 construire un arbre sur les attributs catégoriques qui minise la covariance des
 partitions résultantes de telle sorte qu'il devienne possible d'appliquer
-l'hypothèse d'indépendances. On estimera des densités par maximum de
+l'hypothèse d'indépendance. On estimera des densités par maximum de
 vraisemblance pour chaque feuille et on pourra calculer notre priori en prenant
 le produit des distributions marginales des attributs.
 
 Nous avons choisi le modèle de réseau de neurone convolutionnel d'une part pour
 sa popularité et aussi pour mettre en pratique et explorer des outils comme
-PyTorch.
-
-Les modèle de réseau à convolution consiste à combiner l'information locale
-d'une image [\dots]
+PyTorch. Le modèle de réseau convolutif consiste à combiner l'information
+locale d'une image en appliquant le même réseau de neurone sur différentes
+régions et de mettre en commun le résultat pour construire une représentation
+plus compacte.  L'avantage de ce type de réseau est qu'il est invariant aux
+translations des caractéristiques de l'image d'entrée puisque chaque portion
+est traitée de manière identique.
 
 \section{Bases de données}
 \subsection{\href{http://archive.ics.uci.edu/ml/datasets/Adult}{Prédiction du salaire}}
@@ -137,8 +139,8 @@ attributs bien définis.
 \subsection{\href{http://yann.lecun.com/exdb/mnist/}{MNIST}}
 
 MNIST est une base de donnée d'image de numéros décimaux écrits à la main
-contenant 60000 exemplaires d'entraînement et 10000 exemplaires de test. Il a
-été très populaire et a été très utilisé pour évaluer la performance de
-généralisation de réseaux de neurones. 
+contenant 60000 exemplaires d'entraînement et 10000 exemplaires de test. Elle a
+été très populaire dans les années 1990 et a été très utilisé pour évaluer la performance de
+généralisation de réseaux de neurones.
 
 \end{document}
