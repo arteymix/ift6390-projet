@@ -65,37 +65,68 @@
 
 \begin{document}
 
-\textbf{Titre:} Arbres de décision hybrides et réseaux de neurones convolutifs
+\textbf{Titre:} Thomas Bayes aurait-il dû croquer le fruit interdit?
 
 \abstract
 
-L'objectif de ce projet est, dans un premier temps, de comparer l'efficacité
-d'un classifieur de Bayes combiné à un arbre de décision dans lequel les
-feuilles corresponderaient aux densités conjointes de paires d'attributs avec
-\textbf{(autre algorithme)}. Cette comparaison aura pour support l'échantillon des
-données de prédiction des salaires. Nous sommes motivé par la possibilité d'étudier
-un type de modèle considérant des densités conjointes et dont l'objectif est
-d'optimiser la matrice de variance-covariance des divers attributs. Cet exercise
-nous permettera de plus de comparer l'efficacité d'un modèle dont les densités
-sont des convolutions sans supposer explicitement la dépendance entre les
-attributs avec l'efficacité d'un modèle utilisant une astuce de noyau plus classique. \\
+L'objectif de ce projet est d'expérimenter différentes techniques de
+pré-traitement et d'évaluer la performance de généralisation qu'elles
+permettent pour une variété de modèles de classification. Les même modèles
+seront appliqués sur deux jeux de données fondamentalement différent et
+permetteront de déterminer quel modèle s'applique mieux dans quel cas.
+\\
 
-En deuxième temps, nous utiliserons un réseau de neurones convolutif afin
-d'étudier l'échantillon MNIST et tenter d'obtenir un modèle permettant de
-classifier les images représentant des symboles numériques manuscrits. Cette
-base de données et ce choix d'algorithme sont très importants car c'est une
-collection d'images simple, déjà structurée et formattée, permettant de tester
-des techniques de reconnaissance de motifs. Ces modèles sont généralisables à
-d'autre problèmes et ses applications sont quasi illimitées. Une application
-potentielle serait la reconnaissance de motifs de chaleur précurseurs à un feu
-de forêt grâce à l'imagerie satellite, une application très appropriée au
-Canada où ce genre d'évènement fait rage. \\
+En particulier, nous voulons expérimenter avec un arbre de décision hybride
+visant à minimiser la covariance des composantes afin de pouvoir utiliser un
+classifieur Bayésien naïf. Nous comparerons cette approche à la décomposition
+en composantes primaires. Nous étudierons aussi l'utilisation de distributions
+mixtes pour construire des noyaux. Cette approche est justifiée par le fait que
+le jeu de données de prédiction du salaire présente une combinaison d'attributs
+catégoriques et qu'un arbre de décision nous permettrait de nous en affranchir.
+\\
 
+En deuxième temps, nous expérimenterons avec les réseaux de neurones
+convolutifs et les auto-encodeurs afin d'étudier l'échantillon MNIST. Puisque
+les applications de ces modèles de reconnaissance de motifs sont quasi
+illimitée, nous pourrons maîtriser des outils capable de traiter des problèmes
+plus complexes comme la reconnaissance de motifs de chaleur précurseurs aux
+feux de forêt sur de l'imagerie satellite.
+
+\section{Pré-traitements}
+
+En plus d'appliquer les algorithmes qui suivent sur nos données, nous allons
+également vérifier l'impact des pré-traitements suivants:
+
+\begin{itemize}
+\item décomposition en composante primaires (PCA)
+\item arbre de décision minimisant la covariance de sorte que l'hypothèse
+      d'indépendance soit plus justifiée pour l'utilisation d'un Bayes naïf.
+\item auto-encodeur
+\item réseau convolutif
+\end{itemize}
+
+Nous allons également explorer la possiblité d'utiliser des auto-encoders pour
+traiter l'image. Une approche serait d'associer aux éléments d'une classe une
+permutation aléatoire d'exemplaires à reproduire de sorte que l'encodeur ne
+puisse se contenter d'apprendre la fonction identité, mais plutôt une
+représentation intermédiaire potentiellement utile.
+
+Nous avons choisi le modèle de réseau de neurone convolutif d'une part pour sa
+popularité et aussi pour mettre en pratique et explorer des outils comme
+PyTorch. Le modèle de réseau convolutif consiste à combiner l'information
+locale d'une image en appliquant le même réseau de neurone sur différentes
+régions et de mettre en commun les résultats pour construire une représentation
+plus compacte. L'avantage de ce type de réseau est qu'il est invariant aux
+translations des caractéristiques de l'image d'entrée et qu'il nécessite peu de
+pré-traitement puisqu'il construit lui-même une bonne représentation de l'image.
+\\
+
+Le pré-traitement utilisé dépendra du jeu de données.
 
 \section{Algorithmes}
 
-Le classifieur de Bayes nous intéresse beaucoup, car il offre un bon framework
-pour expérimenter divers modèle de densité à priori et par conséquent d'astuce
+Le classifieur de Bayes nous intéresse beaucoup, car il offre un bon cadre pour
+expérimenter divers modèle de densité à priori et par conséquent d'astuce
 de noyau. De plus, la variante naïve est une bonne base de référence pour
 comparer les modèle d'apprentissage statistique.
 
@@ -103,36 +134,28 @@ Le modèle de Bayes se base en deux temps: on estime une densité à priori sur 
 classe $P[y^i = c_j]$ et ensuite on ajoute l'information sur l'exemplaire
 $P[y^i = c_j | x^i]$. On utilise la règle de Bayes pour calculer la probabilité
 à postériori. Finalement, on choisit la classe $c_j$ associée à la plus grande
-probabilité.  \\
+probabilité.
+\\
 
 Un arbre de décision est un algorithme permettant de classifier un exemplaire
-en suivant des arcs étiquetés par des prédicats sur ses attributs. Les feuilles
-contiennent la classe. Les attributs sont choisis en fonction d'une métrique.
-Par exemple, on pourrait chercher à maximiser le gain d'information (i.e.
-différence d'entropie) résultant du choix d'un attribut.
+en suivant des arcs étiquetés par des prédicats sur ses attributs. Chaque
+feuille est étiquetée par une classe. La topologie et les attributs sont
+choisis en fonction d'hyper-paramètres et d'une métrique au moment de
+l'entraînement. Par exemple, on pourrait chercher à maximiser le gain
+d'information (i.e.  différence d'entropie) résultant du choix d'un attribut.
+\\
 
-En combinant arbre de décision et classification Bayésienne, nous voulons
-construire un arbre sur les attributs catégoriques qui minise la covariance des
-partitions résultantes de telle sorte qu'il devienne possible d'appliquer
-l'hypothèse d'indépendance. On estimera des densités par maximum de
-vraisemblance pour chaque feuille et on pourra calculer notre priori en prenant
-le produit des distributions marginales des attributs.  \\
+Le réseau de neurone multi-couche (i.e. perceptron multi-couche) est un modèle
+inspiré des connexions entre neurones et synapses dans le cerveau. Il est
+composé d'arcs pondérés et de noeuds possédant une fonction d'activation
+produisant une sortie sur une combinaison linéaire des activations d'entrées
+pondéré par les poids des arcs. Nous allons expérimenter les différentes
+architectures pour adresser le problème de classification de salaire et
+d'image.
+\\
 
-Nous avons choisi le modèle de réseau de neurone convolutionnel d'une part pour
-sa popularité et aussi pour mettre en pratique et explorer des outils comme
-PyTorch. Le modèle de réseau convolutif consiste à combiner l'information
-locale d'une image en appliquant le même réseau de neurone sur différentes
-régions et de mettre en commun le résultat pour construire une représentation
-plus compacte.  L'avantage de ce type de réseau est qu'il est invariant aux
-translations des caractéristiques de l'image d'entrée et qu'il nécessite peu de
-pré-traitement puisqu'il construit lui-même une bonne représentation de
-l'image.
-
-Nous allons également explorer la possiblité d'utiliser des auto-encoders pour
-traiter l'image. Une approche serait d'associer aux éléments d'une classe une
-permutation aléatoire d'exemplaires à reproduire de sorte que l'encodeur ne
-puisse se contenter d'apprendre la fonction identité, mais plutôt une
-représentation intermédiaire utile.
+Les algorithmes seront appliqués sur chaque jeu de données et seront combinés
+avec des pré-traitements spécifiques.
 
 \section{Bases de données}
 \subsection{\href{http://archive.ics.uci.edu/ml/datasets/Adult}{Prédiction du salaire}}
