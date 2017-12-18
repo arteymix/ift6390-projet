@@ -29,5 +29,18 @@ combine arbres de décisions et classifieur de Bayes naïf aux feuilles afin de
 maximiser l'indépendance des composantes.
 \end{abstract}
 
-Ok here we go!
-WOW FIGURES
+Points importants pour les données de salaire:
+
+ - imputation des données
+ - classification d'attributs mixtes
+
+# Classifieur de Bayes
+
+![](figures/naive-bayes-salary-learning-curve.png)
+
+# Arbres de décision
+
+E
+
+![](figures/decision-tree-mnist-learning-curve.png)
+![](figures/decision-tree-salary-learning-curve.png)
