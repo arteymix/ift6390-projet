@@ -81,6 +81,9 @@ valeurs binaires. En validation croisée, nous obtenon??% de précision.
 
 # Résultats finaux
 
+Les tableaux suivants corresponent aux valeurs de précision sur les ensembles
+de tests des meilleurs modèle déterminés par le processus de validation.
+
 Salary Précision
 -----  ---------
 NB     55.77%
@@ -90,6 +93,7 @@ NN     96.79%
 MNIST Précision
 ----- ---------
 NB    55.77%
+BNB   83.36%
 DT    ?
 NN    96.79%
 CNN   98.79%
