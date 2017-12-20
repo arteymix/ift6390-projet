@@ -43,12 +43,54 @@ Points importants pour les données de salaire:
  - imputation des données
  - classification d'attributs mixtes
 
-# Classifieur de Bayes
+Les données de salaire ont été imputés avec le mode pour les caractéristiques
+catégoriques et la moyenne pour celles continues.
 
+![](figures/salary-pair-plot.png)
 
-![](figures/naive-bayes-salary-learning-curve.png)
+# Classifieurs de Bayes
+
+Nous avons expérimenté trois variantes du classifieurs de Bayes: à noyau
+Gaussien, Bernoulli et une variante mixte.
+
+![](figures/mixed-naive-bayes-salary-learning-curve-alpha.png)
+
+Nous remarquons que la variante mixte performe particulièrement bien sur les
+données de salaires. Ce qui est remarquable est qu'elle est significativement
+meilleure que les deux modèles pures.
+
+![](figures/mixed-naive-bayes-salary-learning-curve-lambda.png)
+
+Pour les données de MNIST, nous avons testé le classifieur de Bayes à noyau
+Gaussien ainsi que celui de Bernoulli en arrondissant les degrés de gris à des
+valeurs binaires. En validation croisée, nous obtenon??% de précision.
+
+![](figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png)
 
 # Arbres de décision
 
-![](figures/decision-tree-mnist-learning-curve.png)
-![](figures/decision-tree-salary-learning-curve.png)
+![](figures/decision-tree-salary-learning-curve-min-samples-leaf.png)
+![](figures/decision-tree-mnist-learning-curve-max-depth.png)
+
+# Perceptron multi-couche
+
+![](figures/multilayer-perceptron-salary-learning-curve-epoch.png)
+![](figures/multilayer-perceptron-mnist-learning-curve-epoch.png)
+
+![](figures/convolutional-neural-network-mnist-learning-curve-epoch.png)
+
+# Résultats finaux
+
+Salary Précision
+-----  ---------
+NB     55.77%
+DT     ?
+NN     96.79%
+
+MNIST Précision
+----- ---------
+NB    55.77%
+DT    ?
+NN    96.79%
+CNN   98.79%
+
