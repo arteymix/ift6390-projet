@@ -76,16 +76,23 @@ Pour traiter ces attributs, il était d'abord important de prendre une décision
 \end{itemize}
 Pour traiter les données catégorielles, il était important de les transformer, tel que discuter dans l'abstract, en vecteur *onehot*. Nous obtenions donc un total de 99 colonnes pour les entrées *onehot*, ainsi que cinq (5) pour les données continues et une (1) pour la sortie (ou cible).
 
-Les graphiques suivants montrent que la tâches de classification ne sera pas triviale. En effet, pour les attributs continus, une PCA ne permet pas d'entrevoir la possibilité d'une séparabilité linéaire des données. La même hypothèse est faites en observant les histogrammes correspondants aux attributs catégoriels puisqu'aucun attribut ne permet de séparer parfaitement les entrées. Quelques valeurs des attributs catégoriels semblent permettre de trancher, ceci laisse croire que l'utilisation d'abre de décision est justifiée.
+Les graphiques suivants montrent que la tâches de classification ne sera pas triviale. En effet, pour les attributs continus (figure \ref{Analyse par paires d'attributs continus}), une analyse par paires d'attributs ne permet pas d'entrevoir la possibilité d'une séparabilité linéaire des données. La même hypothèse est faites en observant les histogrammes correspondants aux attributs catégoriels (figure \ref{Histogramme des données catégorielles en fonction de la cible associée}) puisqu'aucun attribut ne permet de séparer parfaitement les entrées. Quelques valeurs des attributs catégoriels semblent permettre de trancher, ceci laisse croire que l'utilisation d'abre de décision est justifiée.
 
-\begin{figure}
-\centering\includegraphics[scale=0.5]{figures/salary-pair-plot.png}
-\caption{PCA des données continues de prédiction de salaire}
+\begin{figure}[h!]
+\centering
+  \noindent\includegraphics[width=1.0\linewidth]{figures/salary-count-plot.png}
+  \caption{Histogramme des données catégorielles en fonction de la cible associée}
+  \label{Histogramme des données catégorielles en fonction de la cible associée}
 \end{figure}
-\begin{figure}
-\centering\includegraphics[scale=0.3]{figures/salary-count-plot.png}
-\caption{Histogramme des données catégorielles en fonction de la cible associée}
+
+\begin{figure}[h!]
+\centering
+     \includegraphics[width=1.0\linewidth]{figures/salary-pair-plot.png}
+  \caption{Analyse par paires d'attributs continus}
+  \label{Analyse par paires d'attributs continus}
 \end{figure}
+
+
 
 # Méthodologie
 
