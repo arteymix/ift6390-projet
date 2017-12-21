@@ -75,7 +75,7 @@ manquantes, nous avons choisis de faire les remplacements suivants :
 \end{itemize}
 
 Pour traiter les données catégorielles, il était important de les transformer,
-tel que discuté dans le résumé, en vecteur *one-hot*. Nous obtenons donc un
+tel que discuté dans le résumé, en vecteur *"one-hot"*. Nous obtenons donc un
 total de 99 attributs binaires, cinq (5) attributs continues et une (1) valeur
 binaire pour la sortie (ou cible).
 
@@ -102,7 +102,7 @@ catégoriques et la moyenne pour celles continues.
 
 Toutes les opérations ont été effectuées à l'aide d'un
 `Pipeline`[^sklearn.pipeline.Pipeline] qui permet d'assembler les opérations
-(i.e. imputation, codage *one-hot*) dans une chaîne de montage.
+(i.e. imputation, codage *"one-hot"*) dans une chaîne de montage.
 
 [^sklearn.pipeline.Pipeline]: http://scikit-learn.org/0.18/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline
 
@@ -139,10 +139,9 @@ Nous avons expérimenté trois variantes du classifieurs de Bayes:
 
 La variante mixte combine les log-probabilité à postériori de chacun des
 modèles de la manière suivante:
-
-\begin{align}
+\begin{align*}
 \log \Pr[c|X, X] = \lambda (\log \Pr[c|X]) + (1 - \lambda) (\log \Pr[c|X])
-\end{align}
+\end{align*}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
@@ -160,8 +159,8 @@ n'est actif que lorsque les attributs sont catégoriels. Ainsi plus d'informatio
 implique plus de performance.
 
 La mauvaise performance du noyau Bernoulli est potentiellement explicable par le
-fait que les entrées du vecteur *onehot* sont mutuellement-exclusive et donc
-corrélées.
+fait que les entrées du vecteur *"one-hot"* sont mutuellement exclusive et donc
+corrélées ce qui pose problème avec notre utilisation du classifieur naïf.
 
 L'autre aspect intéressant est que sa courbe d'apprentissage est identique pour
 l'entraînement et la validation, ce qui est consistant avec le fait que les
@@ -200,26 +199,43 @@ reconnue par une distribution conjointe de succès.
 
 # Arbres de décisions
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire}
-\end{wrapfigure}
+L'utilisation des arbres de décision est habituellement appropriée dans le cas
+de données dont les attributs présentent des caractéristiques de haut niveau. Nos deux jeux de données
+présentent de tels attributs, les données de prédiction de salaires
+et les points de MNIST (en niveaux de gris) sont donc traitées directement.
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
-\end{wrapfigure}
+Controller la profondeur permet de controller la capacité et la propension de
+l'algorithme au sur-apprentissage. Augmenter la profondeur maximale aura pour
+effet d'augmenter la capacité de l'arbre de décision mais aussi l'inclinaison
+de celui-ci au sur-apprentissage.
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
-\end{wrapfigure}
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
-\end{wrapfigure}
+Une augmentation du nombre minimal d'observation par feuille implique une diminution de la capacité du modèle. Sans controller la profondeur maximale de l'arbre, permettre qu'il n'y ait qu'un exemplaire par feuille implique qu'il existera un chemin pour chaque exemplaire de l'ensemble d'entrainement. Ce serait le cas ultime de sur-apprentissage dans un arbre de décision.
 
 Les arbres de décisions sont des modèles à très forte capacité et la profondeur
 maximale est définitivement l'hyper-paramètre contrôlant le mieux la capacité
 du modèle.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
+\end{wrapfigure}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
+\end{wrapfigure}
+
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
+\end{wrapfigure}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
+\end{wrapfigure}
+
 
 # Perceptron multi-couche
 
