@@ -172,6 +172,8 @@ modèles Bayésiens on une très faible capacité.
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le lissage Laplacien sur les données de salaire}
+\includegraphics[width=0.48\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
+\caption{Courbe d'apprentissage du classifieur Bayésien à noyau Bernoulli sur MNIST}
 \end{wrapfigure}
 
 Puisque le classifieur de Bayes que nous utilisons est naïf, si dans un sous-ensemble
@@ -183,10 +185,6 @@ une constante $\Delta$ à tous les comptes lors du calcul de fréquence de chaqu
 classe. Il est très important que cet ajout ne soit pas significatif par rapport
 à la valeur de compte la plus faible observée avant le lissage.
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
-\caption{Courbe d'apprentissage du classifieur Bayésien à noyau Bernoulli sur MNIST}
-\end{wrapfigure}
 
 Pour les données de MNIST, nous avons testé le classifieur de Bayes à noyau
 Gaussien ainsi que celui de Bernoulli en arrondissant les degrés de gris à des
@@ -223,7 +221,7 @@ et les points de MNIST (en niveaux de gris) sont donc traitées directement.
 Controller la profondeur permet de controller la capacité et la propension de
 l'algorithme au sur-apprentissage. Augmenter la profondeur maximale aura pour
 effet d'augmenter la capacité de l'arbre de décision mais aussi l'inclinaison
-de celui-ci au sur-apprentissage.
+de celui-ci au sur-apprentissage. Ceci est observable sur la figure \ref{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre} où une valeur plus élevée de cet hyperparamètre entraine une augmentation de l'erreur de validation indiquant un sur-apprentissage.
 
 Une augmentation du nombre minimal d'observation par feuille implique une diminution de la capacité du modèle. Sans controller la profondeur maximale de l'arbre, permettre qu'il n'y ait qu'un exemplaire par feuille implique qu'il existera un chemin pour chaque exemplaire de l'ensemble d'entrainement. Ce serait le cas ultime de sur-apprentissage dans un arbre de décision.
 
