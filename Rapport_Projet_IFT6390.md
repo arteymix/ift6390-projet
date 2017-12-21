@@ -15,6 +15,7 @@ author: |
 header-includes:
  - \usepackage[final]{nips_2017}
  - \usepackage{wrapfig}
+ - \usepackage{graphicx}
 lang: fr
 ---
 
@@ -121,22 +122,39 @@ modèles de la manière suivante:
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
+\caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le paramètre $\lambda$ sur les données de salaire}
 \end{wrapfigure}
 
 Nous remarquons que la variante mixte performe particulièrement bien sur les
 données de salaires. Ce qui est remarquable est qu'elle est significativement
-meilleure que les deux modèles pures.
+meilleure que les deux modèles pures (i.e. chaque extrémités du graphe).
 
 L'autre aspect intéressant est que sa courbe d'apprentissage est identique pour
 l'entraînement et la validation, ce qui est consistant avec le fait que les
 modèles Bayésiens on une très faible capacité.
 
+\newpage
+
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-alpha.png}
+\caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le lissage Laplacien sur les données de salaire}
 \end{wrapfigure}
+
+Ici on rajouterais quelques notes sur le lissage Laplacien. Eget ipsum in sem
+facilisis convallis. Proin fermentum risus. Vestibulum ante ipsum primis in
+faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum hendrerit
+malesuada odio. Fusce ut elit ut augue sollicitudin blandit. Phasellus volutpat
+lorem. Duis non pede et neque luctus tincidunt. Duis interdum tempus elit.
+
+Aenean metus. Vestibulum ac lacus. Vivamus porttitor, massa ut hendrerit
+bibendum, metus augue aliquet turpis, vitae pellentesque velit est vitae metus.
+Duis eros enim, fermentum at, sagittis id, lacinia eget, tellus. Nunc consequat
+pede et nulla. Donec nibh. Pellentesque cursus orci vitae urna. Cum sociis
+natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
+\caption{Courbe d'apprentissage du classifieur Bayésien à noyau Bernoulli sur MNIST}
 \end{wrapfigure}
 
 Pour les données de MNIST, nous avons testé le classifieur de Bayes à noyau
@@ -144,10 +162,16 @@ Gaussien ainsi que celui de Bernoulli en arrondissant les degrés de gris à des
 valeurs binaires. Le taux de bonnes classifications est particulièrement fort:
 83.18%!
 
-# Arbres de décision
+Nous sommes portés à croire que puisque les images sont centrée et normalisée,
+les similarités entre les exemplaires d'une même classe se traduisent par un
+ensemble de pixels communs assez stable. Cette signature est facilement
+reconnue par une distribution conjointe de succès.
+
+# Arbres de décisions
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire}
 \end{wrapfigure}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
@@ -187,20 +211,29 @@ Le perceptron multi-couche ne convergait pas sur les données de salaire.
 Les tableaux suivants corresponent aux valeurs de précision sur les ensembles
 de tests des meilleurs modèle déterminés par le processus de validation.
 
-Salary Précision
------  ---------
-MNB    73.01%
-DT     76.09%
-NN     76.37%
+Salary Validation Test
+-----  ---------- ----
+MNB    83.81%     73.01%
+DT     85.57%     75.82%
+NN     75.45%     76.37%
 
 En générale, on remarque que les modèles utilisés n'ont pas très bien
 fonctionné sur la classification de données de salaire puisque la précision est
 très proche de la répartition des classes.
 
-MNIST Précision
------ ---------
-NB    55.77%
-BNB   83.36%
-DT    87.37%
-NN    96.86%
-CNN   98.87%
+MNIST Validation Test
+----- ---------- ----
+NB    56.28%     55.77%
+BNB   83.18%     83.36%
+DT    86.19%     87.37%
+NN    96.93%     96.86%
+CNN              98.87%
+
+# Répartition
+
+Guillaume s'est occupé de la programmation et Gabriel de la rédaction de la
+présentation du projet et du rapport.
+
+Nous avons fait l'analyse exploratoire des données ensemble.
+
+# Références
