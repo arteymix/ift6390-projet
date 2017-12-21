@@ -144,8 +144,8 @@ modèles de la manière suivante:
 \log \Pr[c|X_{cat}, X_{cont}] = \lambda (\log \Pr[c|X_{cat}]) + (1 - \lambda) (\log \Pr[c|X_{cont}])
 \end{align}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
+\begin{wrapfigure}{r}{0.45\textwidth}
+\includegraphics[width=0.43\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le paramètre $\lambda$ sur les données de salaire}
 \end{wrapfigure}
 
@@ -169,10 +169,12 @@ modèles Bayésiens on une très faible capacité.
 
 \newpage
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-alpha.png}
+\begin{wrapfigure}{r}{0.45\textwidth}
+\includegraphics[width=0.43\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le lissage Laplacien sur les données de salaire}
-\includegraphics[width=0.48\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
+\end{wrapfigure}
+\begin{wrapfigure}{r}{0.45\textwidth}
+\includegraphics[width=0.43\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien à noyau Bernoulli sur MNIST}
 \end{wrapfigure}
 
@@ -198,31 +200,38 @@ reconnue par une distribution conjointe de succès.
 
 # Arbres de décisions
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{wrapfigure}[17]{r}{0.45\textwidth}
+\vspace{-7pt}
 \includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
 \caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
 \label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
-\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
-\label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
-\label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
 \end{wrapfigure}
 
-
 L'utilisation des arbres de décision est habituellement appropriée dans le cas
-de données dont les attributs présentent des caractéristiques de haut niveau. Nos deux jeux de données
-présentent de tels attributs, les données de prédiction de salaires
-et les points de MNIST (en niveaux de gris) sont donc traitées directement.
+de données dont les attributs présentent des caractéristiques de haut niveau.
+Les données de prédiction de salaires présentent de tels attributs mais les
+points de MNIST (en niveaux de gris) n'ont pas une représentation de haut niveau
+ce qui explique peut-être la faible performance de cet algorithme pour la
+classification des images.
 
 Controller la profondeur permet de controller la capacité et la propension de
 l'algorithme au sur-apprentissage. Augmenter la profondeur maximale aura pour
 effet d'augmenter la capacité de l'arbre de décision mais aussi l'inclinaison
 de celui-ci au sur-apprentissage. Ceci est observable sur la figure \ref{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre} et \ref{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre} où une valeur plus élevée de cet hyperparamètre entraine une augmentation de l'erreur de validation indiquant un sur-apprentissage.
+
+\begin{wrapfigure}[15]{r}{0.45\textwidth}
+\vspace{-7pt}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
+\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
+\end{wrapfigure}
+
+\begin{wrapfigure}[17]{r}{0.45\textwidth}
+\vspace{-7pt}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
+\label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
+\end{wrapfigure}
 
 Une augmentation du nombre minimal d'observation par feuille implique une
 diminution de la capacité du modèle. Sans controller la profondeur maximale de
@@ -236,9 +245,17 @@ MNIST HP: Nombre d'observation minimale par feuille} où les erreurs
 d'entrainement et de validation se rapproche lorsque que le nombre minimale
 d'exemplaire augmente.
 
+\begin{wrapfigure}[17]{r}{0.45\textwidth}
+\vspace{-7pt}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
+\label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
+\end{wrapfigure}
+
 Les arbres de décisions sont des modèles à très forte capacité et la profondeur
 maximale est définitivement l'hyper-paramètre contrôlant le mieux la capacité
 du modèle.
+
 
 # Perceptron multi-couche
 
