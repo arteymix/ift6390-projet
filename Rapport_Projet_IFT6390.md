@@ -139,16 +139,10 @@ Nous avons expérimenté trois variantes du classifieurs de Bayes:
 
 La variante mixte combine les log-probabilité à postériori de chacun des
 modèles de la manière suivante:
-<<<<<<< HEAD
-\begin{align*}
-\log \Pr[c|X, X] = \lambda (\log \Pr[c|X]) + (1 - \lambda) (\log \Pr[c|X])
-\end{align*}
-=======
 
 \begin{align}
 \log \Pr[c|X_{cat}, X_{cont}] = \lambda (\log \Pr[c|X_{cat}]) + (1 - \lambda) (\log \Pr[c|X_{cont}])
 \end{align}
->>>>>>> aa3fcb14f5f6f545a6cdae618ec94d521cf85fe7
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
@@ -206,6 +200,21 @@ reconnue par une distribution conjointe de succès.
 
 # Arbres de décisions
 
+\begin{wrapfigure}{r}{0.5\textwidth}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
+\end{wrapfigure}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
+\end{wrapfigure}
+
+
 L'utilisation des arbres de décision est habituellement appropriée dans le cas
 de données dont les attributs présentent des caractéristiques de haut niveau. Nos deux jeux de données
 présentent de tels attributs, les données de prédiction de salaires
@@ -221,28 +230,6 @@ Une augmentation du nombre minimal d'observation par feuille implique une diminu
 Les arbres de décisions sont des modèles à très forte capacité et la profondeur
 maximale est définitivement l'hyper-paramètre contrôlant le mieux la capacité
 du modèle.
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
-\end{wrapfigure}
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
-\end{wrapfigure}
-
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
-\end{wrapfigure}
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
-\end{wrapfigure}
-
 
 # Perceptron multi-couche
 
