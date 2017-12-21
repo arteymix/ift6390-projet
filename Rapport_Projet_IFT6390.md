@@ -97,14 +97,17 @@ Les graphiques suivants montrent que la tâches de classification ne sera pas tr
 Les données de salaire ont été imputés avec le mode pour les caractéristiques
 catégoriques et la moyenne pour celles continues.
 
+Toutes les opérations ont été effectuées à l'aide d'un `Pipeline`[^sklearn.pipeline.Pipeline].
+
 La recherche par grille fournie par la classe `GridSearchCV`[^sklearn.model_selection.GridSearchCV]
 a été utilisée pour déterminer les meilleurs hyper-paramètres.
 
 Les réseaux de neurones ont été hyper-paramétré à la main et seulement l'époque
 optimale a été déterminée par validation croisée.
 
-Nous avons utilisé l'algorithme Adadelta (Zeiler 2012) pour faire
-l'optimisation qui utilise une moyenne exponentielle des gradients précédents.
+Nous avons utilisé l'algorithme Adadelta [@DBLP:journals/corr/abs-1212-5701]
+pour faire l'optimisation qui utilise une moyenne exponentielle des gradients
+précédents.
 
 Nous avons également favorisé l'approche Dropout (Srivastava et al. 2014) au
 lieu des régularisations L1/L2 puisqu'elle semblait bien fonctionner. Cette
