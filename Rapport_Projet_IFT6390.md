@@ -13,7 +13,7 @@ author: |
   Montréal \
   \texttt{gabriell@dms.umontreal.ca}
 header-includes:
- - \usepackage{nips_2017}
+ - \usepackage[final]{nips_2017}
  - \usepackage{wrapfig}
 lang: fr
 ---
@@ -21,7 +21,8 @@ lang: fr
 \begin{abstract}
 Il existe différents types de données qui exhibent des relations particulières
 entre les dimensions. Nous comparerons l'efficacité de différents modèles
-d'apprentissage sur deux ensembles de données, MNIST et salaires. En
+d'apprentissage sur deux ensembles de données, les caractères naturels de
+l'échantillon MNIST et les données de prédiction salaires. En
 particulier, nous nous intéresserons au classifieur de Bayes, aux arbres de
 décisions et au perceptron multi-couche. De plus, nous explorerons différents
 pré-traitement pour mesurer les gains possibles lorsque combinés avec un modèle
@@ -39,19 +40,44 @@ combine arbres de décisions et classifieur de Bayes naïf aux feuilles afin de
 maximiser l'indépendance des composantes.
 \end{abstract}
 
+
 # Analyses préliminaires
+Les attributs de l'échantillons de prévision de salaires étaient au nombre de treize (13) et étaient séparables en attributs catégoriels et attributs continus :
 
-Points importants pour les données de salaire:
+**Continus**
+  \begin{itemize}
+    \item Age
+    \item Financial weighted
+    \item Capital gains
+    \item Capital loss
+    \item Hours per week
+  \end{itemize}
 
- - imputation des données
- - classification d'attributs mixtes
+**Catégoriels**
+  \begin{itemize}
+    \item Work class
+    \item Education
+    \item Education code
+    \item Marital status
+    \item Occupation
+    \item Relationship
+    \item Race
+    \item Sex
+    \item Native country
+  \end{itemize}
 
-Comme analyse primaire sur les données de salaire.
+Nous avons choisis de ne considérer que l'entrée *Education* et de laisser tomber *Education code* puisque les deux font référence à la même chose, nous traiterons donc douze (12) attributs.
+
+Pour traiter ces attributs, il était d'abord important de prendre une décision en ce qui a trait au données manquantes. Puisque les algorithmes de type arbre de décision et classifieur de Bayes ne prennent pas de données manquantes, nous avons choisis de faire les remplacements suivants :
+\begin{itemize}
+  \item[Attributs \textit{continus}] - \textbf{Moyenne} empirique sur $D_{train}$ des valeurs de cet attribut
+  \item[Attributs \textit{catégoriels}] - \textbf{Mode} empirique sur $D_{train}$ des valeurs de cet attribut
+\end{itemize}
+Pour traiter les données catégorielles, il était important de les transformer, tel que discuter dans l'abstract, en vecteur *onehot*. Nous obtenions donc un total de 99 colonnes pour les entrées *onehot*, ainsi que cinq (5) pour les données continues et une (1) pour la sortie (ou cible).
 
 ![](figures/salary-pair-plot.png)
 ![Diagramme des occurences de chaque classes selon chaque attribut catégorique](figures/salary-count-plot.png)
 
-On peut facilement voir la capacité de chaque attribut.
 
 # Méthodologie
 
