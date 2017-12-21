@@ -86,15 +86,15 @@ de tests des meilleurs modèle déterminés par le processus de validation.
 
 Salary Précision
 -----  ---------
-NB     55.77%
-DT     ?
-NN     96.79%
+MNB    73.01%
+DT     76.09%
+NN     76.37%
 
 MNIST Précision
 ----- ---------
 NB    55.77%
 BNB   83.36%
-DT    ?
-NN    96.79%
-CNN   98.79%
+DT    87.37%
+NN    96.86%
+CNN   98.87%
 
