@@ -139,9 +139,16 @@ Nous avons expérimenté trois variantes du classifieurs de Bayes:
 
 La variante mixte combine les log-probabilité à postériori de chacun des
 modèles de la manière suivante:
+<<<<<<< HEAD
 \begin{align*}
 \log \Pr[c|X, X] = \lambda (\log \Pr[c|X]) + (1 - \lambda) (\log \Pr[c|X])
 \end{align*}
+=======
+
+\begin{align}
+\log \Pr[c|X_{cat}, X_{cont}] = \lambda (\log \Pr[c|X_{cat}]) + (1 - \lambda) (\log \Pr[c|X_{cont}])
+\end{align}
+>>>>>>> aa3fcb14f5f6f545a6cdae618ec94d521cf85fe7
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
@@ -173,11 +180,11 @@ modèles Bayésiens on une très faible capacité.
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le lissage Laplacien sur les données de salaire}
 \end{wrapfigure}
 
-Puisque le classifieur de bayes que nous utilisons est naïf, si dans un sous-ensemble
+Puisque le classifieur de Bayes que nous utilisons est naïf, si dans un sous-ensemble
 au moins une valeur possible d'un des attributs n'est pas observée, le calcul du
 produit des densités sur chaque dimensions de l'entrée retournera zéro (0) et
 l'entré en question perdra tout sont poids dans le calcul. Pour contourner ce
-problème, nous utilisons le lissage laplacien. Cette méthode ajoute simplement
+problème, nous utilisons le lissage Laplacien. Cette méthode ajoute simplement
 une constante $\Delta$ à tous les comptes lors du calcul de fréquence de chaque
 classe. Il est très important que cet ajout ne soit pas significatif par rapport
 à la valeur de compte la plus faible observée avant le lissage.
@@ -258,23 +265,23 @@ Le perceptron multi-couche ne convergait pas sur les données de salaire.
 Les tableaux suivants corresponent aux valeurs de précision sur les ensembles
 de tests des meilleurs modèle déterminés par le processus de validation.
 
-Salary Validation Test
------  ---------- ----
-MNB    83.81%     73.01%
-DT     85.57%     75.82%
-NN     75.45%     76.37%
+Salary                  Validation Test
+-----                   ---------- ----
+Bayes naïf mixte        83.81%     73.01%
+Arbres de décisions     85.57%     75.82%
+Perceptron multi-couche 75.45%     76.37%
 
 En générale, on remarque que les modèles utilisés n'ont pas très bien
 fonctionné sur la classification de données de salaire puisque la précision est
 très proche de la répartition des classes.
 
-MNIST Validation Test
------ ---------- ----
-NB    56.28%     55.77%
-BNB   83.18%     83.36%
-DT    86.19%     87.37%
-NN    96.93%     96.86%
-CNN   98.77%     98.87%
+MNIST                         Validation Test
+-----                         ---------- ----
+Bayes naïf gaussien           56.28%     55.77%
+Bayes naïf de Bernoulli       83.18%     83.36%
+Arbres de décisions           86.19%     87.37%
+Perceptron multi-couche       96.93%     96.86%
+Réseau de neurones convolutif 98.77%     98.87%
 
 # Répartition
 
