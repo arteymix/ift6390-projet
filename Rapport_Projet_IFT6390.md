@@ -75,6 +75,8 @@ Pour traiter ces attributs, il était d'abord important de prendre une décision
 \end{itemize}
 Pour traiter les données catégorielles, il était important de les transformer, tel que discuter dans l'abstract, en vecteur *onehot*. Nous obtenions donc un total de 99 colonnes pour les entrées *onehot*, ainsi que cinq (5) pour les données continues et une (1) pour la sortie (ou cible).
 
+Les graphiques suivants montrent que la tâches de classification ne sera pas triviale. En effet, pour les attributs continus, une PCA ne permet pas d'entrevoir la possibilité d'une séparabilité linéaire des données. La même hypothèse est faites en observant les histogrammes correspondants aux attributs catégoriels puisqu'aucun attribut ne permet de séparer parfaitement les entrées. Quelques valeurs des attributs catégoriels semblent permettre de trancher, ceci laisse croire que l'utilisation d'abre de décision est justifiée.
+
 ![](figures/salary-pair-plot.png)
 ![Diagramme des occurences de chaque classes selon chaque attribut catégorique](figures/salary-count-plot.png)
 
