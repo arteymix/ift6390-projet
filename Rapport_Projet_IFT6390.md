@@ -201,15 +201,16 @@ reconnue par une distribution conjointe de succès.
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
 \caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
+\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
 \includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
 \caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
-\end{wrapfigure}
-
-\begin{wrapfigure}{r}{0.5\textwidth}
+\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
 \includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
 \caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
+\label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
 \includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
 \caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
+\label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
 \end{wrapfigure}
 
 
@@ -221,9 +222,19 @@ et les points de MNIST (en niveaux de gris) sont donc traitées directement.
 Controller la profondeur permet de controller la capacité et la propension de
 l'algorithme au sur-apprentissage. Augmenter la profondeur maximale aura pour
 effet d'augmenter la capacité de l'arbre de décision mais aussi l'inclinaison
-de celui-ci au sur-apprentissage. Ceci est observable sur la figure \ref{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre} où une valeur plus élevée de cet hyperparamètre entraine une augmentation de l'erreur de validation indiquant un sur-apprentissage.
+de celui-ci au sur-apprentissage. Ceci est observable sur la figure \ref{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre} et \ref{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre} où une valeur plus élevée de cet hyperparamètre entraine une augmentation de l'erreur de validation indiquant un sur-apprentissage.
 
-Une augmentation du nombre minimal d'observation par feuille implique une diminution de la capacité du modèle. Sans controller la profondeur maximale de l'arbre, permettre qu'il n'y ait qu'un exemplaire par feuille implique qu'il existera un chemin pour chaque exemplaire de l'ensemble d'entrainement. Ce serait le cas ultime de sur-apprentissage dans un arbre de décision.
+Une augmentation du nombre minimal d'observation par feuille implique une
+diminution de la capacité du modèle. Sans controller la profondeur maximale de
+l'arbre, permettre qu'il n'y ait qu'un exemplaire par feuille implique qu'il
+existera un chemin pour chaque exemplaire de l'ensemble d'entrainement. Ce
+serait le cas ultime de sur-apprentissage dans un arbre de décision. Ce symptôme
+de sur-apprentissage est évident dans les figures \ref{Courbe d'apprentissage
+des arbres de décisions sur les données de salaire HP: Nombre d'observation
+minimale par feuille} et \ref{Courbe d'apprentissage des arbres de décisions sur
+MNIST HP: Nombre d'observation minimale par feuille} où les erreurs
+d'entrainement et de validation se rapproche lorsque que le nombre minimale
+d'exemplaire augmente.
 
 Les arbres de décisions sont des modèles à très forte capacité et la profondeur
 maximale est définitivement l'hyper-paramètre contrôlant le mieux la capacité
