@@ -46,26 +46,24 @@ maximiser l'indépendance des composantes.
 Les attributs de l'échantillons de prévision de salaires étaient au nombre de treize (13) et étaient séparables en attributs catégoriels et attributs continus :
 
 **Continus**
-  \begin{itemize}
-    \item Age
-    \item Financial weighted
-    \item Capital gains
-    \item Capital loss
-    \item Hours per week
-  \end{itemize}
+
+- Age
+- Financial weighted
+- Capital gains
+- Capital loss
+- Hours per week
 
 **Catégoriels**
-  \begin{itemize}
-    \item Work class
-    \item Education
-    \item Education code
-    \item Marital status
-    \item Occupation
-    \item Relationship
-    \item Race
-    \item Sex
-    \item Native country
-  \end{itemize}
+
+- Work class
+- Education
+- Education code
+- Marital status
+- Occupation
+- Relationship
+- Race
+- Sex
+- Native country
 
 Nous avons choisis de ne considérer que l'entrée *Education* et de laisser tomber *Education code* puisque les deux font référence à la même chose, nous traiterons donc douze (12) attributs.
 
@@ -123,8 +121,11 @@ le minimum observé correspond au vrai minimum.
 
 # Classifieurs de Bayes
 
-Nous avons expérimenté trois variantes du classifieurs de Bayes: à noyau
-Gaussien, Bernoulli et une variante mixte.
+Nous avons expérimenté trois variantes du classifieurs de Bayes:
+
+- Noyau Gaussien,
+- Bernoulli,
+- Variante mixte.
 
 La variante mixte combine les log-probabilité à postériori de chacun des
 modèles de la manière suivante:
@@ -142,6 +143,16 @@ Nous remarquons que la variante mixte performe particulièrement bien sur les
 données de salaires. Ce qui est remarquable est qu'elle est significativement
 meilleure que les deux modèles pures (i.e. chaque extrémités du graphe).
 
+Une hypothèse pouvant expliquer cette performance supérieure est que chaque méthode
+comporte des avantages sur certains types d'attributs. Le noyau gaussien est
+fort probablement avantageux sur les attributs continus et le noyau de Bernoulli
+n'est actif que lorsque les attributs sont catégoriels. Ainsi plus d'information
+implique plus de performance.
+
+La mauvaise performance du noyau Bernoulli est potentiellement explicable par le
+fait que les entrées du vecteur *onehot* sont mutuellement-exclusive et donc
+corrélées.
+
 L'autre aspect intéressant est que sa courbe d'apprentissage est identique pour
 l'entraînement et la validation, ce qui est consistant avec le fait que les
 modèles Bayésiens on une très faible capacité.
@@ -153,17 +164,14 @@ modèles Bayésiens on une très faible capacité.
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le lissage Laplacien sur les données de salaire}
 \end{wrapfigure}
 
-Ici on rajouterais quelques notes sur le lissage Laplacien. Eget ipsum in sem
-facilisis convallis. Proin fermentum risus. Vestibulum ante ipsum primis in
-faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum hendrerit
-malesuada odio. Fusce ut elit ut augue sollicitudin blandit. Phasellus volutpat
-lorem. Duis non pede et neque luctus tincidunt. Duis interdum tempus elit.
-
-Aenean metus. Vestibulum ac lacus. Vivamus porttitor, massa ut hendrerit
-bibendum, metus augue aliquet turpis, vitae pellentesque velit est vitae metus.
-Duis eros enim, fermentum at, sagittis id, lacinia eget, tellus. Nunc consequat
-pede et nulla. Donec nibh. Pellentesque cursus orci vitae urna. Cum sociis
-natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+Puisque le classifieur de bayes que nous utilisons est naïf, si dans un sous-ensemble
+au moins une valeur possible d'un des attributs n'est pas observée, le calcul du
+produit des densités sur chaque dimensions de l'entrée retournera zéro (0) et
+l'entré en question perdra tout sont poids dans le calcul. Pour contourner ce
+problème, nous utilisons le lissage laplacien. Cette méthode ajoute simplement
+une constante $\Delta$ à tous les comptes lors du calcul de fréquence de chaque
+classe. Il est très important que cet ajout ne soit pas significatif par rapport
+à la valeur de compte la plus faible observée avant le lissage.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
