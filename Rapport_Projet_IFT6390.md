@@ -21,26 +21,21 @@ lang: fr
 
 \begin{abstract}
 Il existe différents types de données qui exhibent des relations particulières
-entre les dimensions. Nous comparerons l'efficacité de différents modèles
-d'apprentissage sur deux ensembles de données, les caractères naturels de
-l'échantillon MNIST et les données de prédiction salaires. En
-particulier, nous nous intéresserons au classifieur de Bayes, aux arbres de
-décisions et au perceptron multi-couche. De plus, nous explorerons différents
-pré-traitement pour mesurer les gains possibles lorsque combinés avec un modèle
-traditionnel de classification. Notre intuition nous porte à croire que les
-méthodes de types arbres de décision et classifieur de Bayes seront plus
-efficaces sur les prédictions de salaire que sur MNIST. Cette intuition est
-justifiée par le fait que les attributs pour les salaires sont plus clairement
-scindés. Pour contourner le fait que certains des attributs de l'échantillon de
-prédiction de salaire sont de type catégorielle, nous
-prévoyons effectué une transformation de type onehot et ainsi considérer des
-vecteurs numériques plutôt que des classes.
-
-Finalement, nous proposerons un modèle qui
-combine arbres de décisions et classifieur de Bayes naïf aux feuilles afin de
-maximiser l'indépendance des composantes.
+entre les dimensions. Nous comparons ici l'efficacité de différents modèles
+d'apprentissage sur deux ensembles de données: les caractères manuscrits de
+l'échantillon MNIST et les données de prédiction de salaires. En particulier,
+nous nous intéressons au classifieur de Bayes, aux arbres de décisions et au
+perceptron multi-couche. Nous explorerons différents pré-traitement pour
+mesurer les gains possibles lorsque combinés avec un modèle traditionnel de
+classification. Notre intuition nous porte à croire que les méthodes de types
+arbres de décision et classifieur de Bayes seront plus efficaces sur les
+prédictions de salaire que sur MNIST. Cette intuition est justifiée par le fait
+que les attributs pour les salaires sont plus clairement scindés. Pour
+contourner le fait que certains des attributs de l'échantillon de prédiction de
+salaire sont de type catégorielle, nous prévoyons effectué une transformation
+de type \textit{one-hot} et ainsi considérer des vecteurs numériques plutôt que des
+classes.
 \end{abstract}
-
 
 # Analyses préliminaires
 Les attributs de l'échantillons de prévision de salaires étaient au nombre de treize (13) et étaient séparables en attributs catégoriels et attributs continus :
@@ -67,16 +62,26 @@ Les attributs de l'échantillons de prévision de salaires étaient au nombre de
     \item Native country
   \end{itemize}
 
-Nous avons choisis de ne considérer que l'entrée *Education* et de laisser tomber *Education code* puisque les deux font référence à la même chose, nous traiterons donc douze (12) attributs.
+Nous avons choisis de considérer que l'entrée *Education* et de laisser tomber
+*Education code*, puisque les deux font référence à la même chose. Nous
+traiterons donc douze (12) attributs.
 
-Pour traiter ces attributs, il était d'abord important de prendre une décision en ce qui a trait au données manquantes. Puisque les algorithmes de type arbre de décision et classifieur de Bayes ne prennent pas de données manquantes, nous avons choisis de faire les remplacements suivants :
+Pour traiter ces attributs, il est d'abord important de prendre une décision en
+ce qui a trait à l'imputation données manquantes. Puisque les algorithmes de
+type arbres de décisions et classifieur de Bayes ne prennent pas de données
+manquantes, nous avons choisis de faire les remplacements suivants :
+
 \begin{itemize}
-  \item[Attributs \textit{continus}] - \textbf{Moyenne} empirique sur $D_{train}$ des valeurs de cet attribut
-  \item[Attributs \textit{catégoriels}] - \textbf{Mode} empirique sur $D_{train}$ des valeurs de cet attribut
+  \item[Attributs \textit{continus}] - \textbf{Moyenne} empirique sur $D$ des valeurs de cet attribut
+  \item[Attributs \textit{catégoriels}] - \textbf{Mode} empirique sur $D$ des valeurs de cet attribut
 \end{itemize}
-Pour traiter les données catégorielles, il était important de les transformer, tel que discuter dans l'abstract, en vecteur *onehot*. Nous obtenions donc un total de 99 colonnes pour les entrées *onehot*, ainsi que cinq (5) pour les données continues et une (1) pour la sortie (ou cible).
 
-Les graphiques suivants montrent que la tâches de classification ne sera pas triviale. En effet, pour les attributs continus (figure \ref{Analyse par paires d'attributs continus}), une analyse par paires d'attributs ne permet pas d'entrevoir la possibilité d'une séparabilité linéaire des données. La même hypothèse est faites en observant les histogrammes correspondants aux attributs catégoriels (figure \ref{Histogramme des données catégorielles en fonction de la cible associée}) puisqu'aucun attribut ne permet de séparer parfaitement les entrées. Quelques valeurs des attributs catégoriels semblent permettre de trancher, ceci laisse croire que l'utilisation d'abre de décision est justifiée.
+Pour traiter les données catégorielles, il était important de les transformer,
+tel que discuté dans le résumé, en vecteur *one-hot*. Nous obtenons donc un
+total de 99 attributs binaires, cinq (5) attributs continues et une (1) valeur
+binaire pour la sortie (ou cible).
+
+Les graphiques suivants montrent que la tâches de classification des données de salaires n'est pas triviale. En effet, pour les attributs continus (figure \ref{Analyse par paires d'attributs continus}), une analyse par paires d'attributs ne permet pas d'entrevoir la possibilité d'une séparabilité linéaire des données. La même hypothèse est faites en observant les histogrammes correspondants aux attributs catégoriels (figure \ref{Histogramme des données catégorielles en fonction de la cible associée}) puisqu'aucun attribut ne permet de séparer parfaitement les entrées. Quelques valeurs des attributs catégoriels semblent permettre de trancher, ceci laisse croire que l'utilisation d'arbre de décision est justifiée.
 
 \begin{figure}[h!]
 \centerline{\includegraphics[width=1.0\paperwidth]{figures/salary-count-plot.png}}
@@ -97,24 +102,29 @@ Les graphiques suivants montrent que la tâches de classification ne sera pas tr
 Les données de salaire ont été imputés avec le mode pour les caractéristiques
 catégoriques et la moyenne pour celles continues.
 
-Toutes les opérations ont été effectuées à l'aide d'un `Pipeline`[^sklearn.pipeline.Pipeline].
+Toutes les opérations ont été effectuées à l'aide d'un
+`Pipeline`[^sklearn.pipeline.Pipeline] qui permet d'assembler les opérations
+(i.e. imputation, codage *one-hot*) dans une chaîne de montage.
+
+[^sklearn.pipeline.Pipeline]: http://scikit-learn.org/0.18/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline
 
 La recherche par grille fournie par la classe `GridSearchCV`[^sklearn.model_selection.GridSearchCV]
-a été utilisée pour déterminer les meilleurs hyper-paramètres.
+a été utilisée pour déterminer les meilleurs hyper-paramètres. Nous avons
+également utilisé un super calculateur pour paralléliser ce procédé.
+
+[^sklearn.model_selection.GridSearchCV]: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
 
 Les réseaux de neurones ont été hyper-paramétré à la main et seulement l'époque
 optimale a été déterminée par validation croisée.
 
 Nous avons utilisé l'algorithme Adadelta [@DBLP:journals/corr/abs-1212-5701]
 pour faire l'optimisation qui utilise une moyenne exponentielle des gradients
-précédents.
+des étapes précédents.
 
 Nous avons également favorisé l'approche Dropout (Srivastava et al. 2014) au
 lieu des régularisations L1/L2 puisqu'elle semblait bien fonctionner. Cette
 méthode consiste à rendre inneffective une proportion aléatoire d'unités dans
-une couche.
-
-[^sklearn.model_selection.GridSearchCV]: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
+une couche de neurones.
 
 Les courbes d'apprentissages affichent l'erreur de classification en fonction
 de la valeur d'un hyper-paramètre en considérant les valeurs des autres
