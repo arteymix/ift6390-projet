@@ -148,7 +148,7 @@ le minimum observé correspond au vrai minimum.
 Nous avons expérimenté trois variantes du classifieurs de Bayes:
 
 - noyau Gaussien;
-- noyeau de Bernoulli;
+- noyau de Bernoulli;
 - variante mixte.
 
 La variante mixte combine les log-probabilité à postériori de chacun des
@@ -180,7 +180,7 @@ fait que les entrées du vecteur *"one-hot"* sont mutuellement exclusive et donc
 corrélées ce qui pose problème avec notre utilisation du classifieur naïf.
 
 L'autre aspect intéressant est que sa courbe d'apprentissage est identique pour
-l'entraînement et la validation, ce qui est consistant avec le fait que les
+l'entraînement et la validation, ce qui est cohérent avec le fait que les
 modèles Bayésiens on une très faible capacité.
 
 \begin{figure}
@@ -289,6 +289,7 @@ l'ajout de couches cachées.
 \centering
 \includegraphics[width=0.48\textwidth]{figures/multilayer-perceptron-salary-learning-curve-epoch.png}
 \caption{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire}
+\label{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire}
 \end{figure}
 
 La descente en escalier semble être liée à la régularisation Dropout: à chaque
@@ -310,11 +311,11 @@ tente de trouver une nouvelle façon de faire baisser la perte.
 \end{wrapfigure}
 
 Tel qu'anticipé, le réseau de neurones convolutif est très performant et
-convergent rapidement. L'approche est très intéressante: $k$ noyeaux de
+convergent rapidement. L'approche est très intéressante: $k$ noyaux de
 convolution sont appliqués sur chaque région de l'image pour former un ensemble
 de représentation intermédiaire en ensuite une mise en commun (*pooling*) est
 effectué pour écraser ces features dans une représentation compacte. Ensuite,
-la représentation en 2 dimensions est ramené à un vecteur sur lequel on
+la représentation en 2 dimensions est transformée en un vecteur sur lequel on
 applique un réseau de neurones traditionnel.
 
 Un des avantages de ce type de modèles est qu'il réutilise les même poids pour
@@ -322,7 +323,7 @@ chaque noyau de convolutions, ce qui réduit considérablement le temps
 d'entraînement et il peut exploiter les caractéristiques de localité de
 l'image.
 
-# Résultats finaux
+# Résultats finaux et discussion
 
 Les tableaux suivants corresponent aux valeurs de précision sur les ensembles
 de validation et de test.
@@ -333,9 +334,66 @@ Bayes naïf mixte        83.81%     73.01%
 Arbres de décisions     85.57%     75.82%
 Perceptron multi-couche 75.45%     76.37%
 
+Table: (*Résultats finaux Prédiction de salaire*) \label{Résultats finaux Prédiction de salaire}
+
 En générale, on remarque que les modèles utilisés n'ont pas très bien performé
-en test, ce qui est très surprenant pour le modèle de Bayes qui ne devrait pas
+en test. Ceci est très surprenant pour le modèle de Bayes qui ne devrait pas
 avoir souffert de sur-apprentissage.
+
+Nous observons que l'échantillon complet recuilli est déséquilibré,
+présentant environ 75% de cibles $<=50K$ et 25% de cibles $>50K$. Nous avons
+construit les sous-ensembles d'entrainement, de validation et de test selon ces
+mêmes proportions. En analysant les classifications finales sur l'ensemble de
+validation pour les arbres de décision, nous obtenons les valeurs du tableau \ref{RappClassValid}.
+
+Cible      precision  recall     f1-score   support
+-----      ---------  ------     --------   -------
+$<=50K$    0.88       **0.95**   0.91       24720
+$>50K$     0.79       **0.59**   0.67       7841
+avg/total  0.86       0.86       0.86       32561
+
+Table:  (*Rapport de classification DT*, **Validation**) \label{RappClassValid}
+
+La colonne "*recall*" fait référence au nombre de points de cette classe qui
+furent bien classés. Il est évident que l'algorithme est nettement meilleur pour
+identifier les exemplaire ayant pour cible $<=50K$. En analysant le rapport de
+classification sur l'ensemble de test, nous observons que ce déséquilibre est
+encore plus fort.
+
+Cible      precision  recall     f1-score   support
+-----      ---------  ------     --------   -------
+$<=50K$    0.81       **0.89**   0.85       12435
+$>50K$     0.48       **0.33**   0.39       3846
+avg/total  0.73       0.76       0.74       16281
+
+Table:  (*Rapport de classification DT*, **Test**) \label{RappClassTest}
+
+Puisque les critères utilisés pour la selection des tests aux noeuds de l'arbre
+suppose souvent une distribution uniforme des exemplaires y étant traités, un
+déséquilibre entre la fréquence de chaque classe pourrait entrainer une
+préférence des tests pour une classe en particulier. C'est peut-être ce que nous
+observons avec les données de prédiction de salaire. L'utilisation de l'enthropie
+décentrée [@ArbreDeseq] comme mesure de désordre serait une solution potentielle à étudier
+dans une analyse subséquente de cet échantillon puisque cette méthode pondère
+en fonction de l'importance de chaque classe aux noeuds.
+
+Il serait aussi intéressant de discrétiser les attributs continus pour tester
+nos classifieur de Bayes et arbres de décision sur des attributs discrets
+seulement.
+
+Il était attendu que les réseaux de neurones ne soient pas optimaux sur les
+prédictions de salaires à cause de la quantité élevée d'attributs catégoriels
+mélangés aux attributs continus. La performance sur l'ensemble de validation et
+de test est cependant très comparable ce qui confirme que les réseaux de
+neurones ne sont pas très sensible aux problèmes de sur-apprentissage. En
+analysant la figure \ref{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire},
+il ne semble pas que d'augmenter le nombre d'époque est le moindre effet sur
+la précision du réseau. Les résultats de la table \ref{Résultats finaux Prédiction de salaire}
+mette en évidence le même type de problème conformément à la répartition des
+classes dans l'échantillon initial.
+
+Pour ce qui est des résultats sur MNIST, la performance obtenue est relativement
+conforme à notre intuition.
 
 MNIST                         Validation Test
 -----                         ---------- ----
@@ -345,13 +403,36 @@ Arbres de décisions           86.19%     87.37%
 Perceptron multi-couche       96.93%     96.86%
 Réseau de neurones convolutif 98.77%     98.87%
 
-En général, les modèle ont bien performé sur l'ensemble MNIST. Nous sommes
+Table: (*Résultats finaux MNIST*) \label{Résultats finaux MNIST}
+
+En général, les modèles ont bien performé sur l'ensemble MNIST. Nous sommes
 étonnés de voir l'erreur de test diminuer pour les arbres de décision, quoique
 le taux de classification n'est peut-être pas suffisament élevé pour que ce
 soit significatif.
 
+Le positionnement des images au centre et leurs dimensions sensiblement stables a
+beaucoup contribué à la performance des classifieur de Bayes naïf. Ceux-ci ayant
+pour objectif de trouver une "distribution" pour analyser les pixels auraient
+probablement très mal performé sur des images de caractères non transformées.
+Les applications de ce type d'algorithme dans la monde "réel" serait donc très
+limitées sans l'ajout d'une transformation a priori sur les images pour normaliser
+la position et l'échelle des caractères.
+
 Les modèles de réseaux de neurones ont très bien conservé leur performance
 assez élevée sur cet ensemble de données.
+
+La position et l'échelle n'est pas aussi significatif pour les réseaux
+convolutifs qui analyse de petites fenêtres de l'image. Ceux-ci pourraient fort probablement
+déceler les subtilités des caractères mêmes si leur taille ou positionnement
+n'est pas constant. Leur faible sensibilité aux variations de ces deux facteurs
+explique en partie leur performance plus élevée que les réseaux de neuronnes MLP.
+
+Nous avions prévu tester la performance d'arbres de décision dont les noeuds prennent
+une décision en fonction d'une combinaison linéaire des attributs obtenue par
+une PCA. Le temps nous ayant malheureusement manqué, il serait très intéressant
+de tester ce type d'algorithme dans un projet subséquent. Nous espérons ainsi
+augmenter la performance de ces arbres sur des échantillons tels la prédiction
+de salaire où ces algorithmes semblent souffir de sur-apprentissage.
 
 # Répartition
 
