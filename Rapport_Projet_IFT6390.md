@@ -148,8 +148,10 @@ modèles de la manière suivante:
 \end{align*}
 
 \begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-20pt}
 \includegraphics[width=0.43\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le paramètre $\lambda$ sur les données de salaire}
+\vspace{-20pt}
 \end{wrapfigure}
 
 Nous remarquons que la variante mixte performe particulièrement bien sur les
@@ -170,16 +172,17 @@ L'autre aspect intéressant est que sa courbe d'apprentissage est identique pour
 l'entraînement et la validation, ce qui est consistant avec le fait que les
 modèles Bayésiens on une très faible capacité.
 
-\newpage
-
-\begin{wrapfigure}{r}{0.45\textwidth}
+\begin{figure}
+\centering
 \includegraphics[width=0.43\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le lissage Laplacien sur les données de salaire}
-\end{wrapfigure}
-\begin{wrapfigure}{r}{0.45\textwidth}
+\end{figure}
+
+\begin{figure}
+\centering
 \includegraphics[width=0.43\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien à noyau Bernoulli sur MNIST}
-\end{wrapfigure}
+\end{figure}
 
 Puisque le classifieur de Bayes que nous utilisons est naïf, si dans un sous-ensemble
 au moins une valeur possible d'un des attributs n'est pas observée, le calcul du
@@ -203,13 +206,6 @@ reconnue par une distribution conjointe de succès.
 
 # Arbres de décisions
 
-\begin{wrapfigure}[17]{r}{0.45\textwidth}
-\vspace{-7pt}
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
-\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
-\end{wrapfigure}
-
 L'utilisation des arbres de décision est habituellement appropriée dans le cas
 de données dont les attributs présentent des caractéristiques de haut niveau.
 Les données de prédiction de salaires présentent de tels attributs mais les
@@ -217,24 +213,31 @@ points de MNIST (en niveaux de gris) n'ont pas une représentation de haut nivea
 ce qui explique peut-être la faible performance de cet algorithme pour la
 classification des images.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
+\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
+\end{figure}
+
 Controller la profondeur permet de controller la capacité et la propension de
 l'algorithme au sur-apprentissage. Augmenter la profondeur maximale aura pour
 effet d'augmenter la capacité de l'arbre de décision mais aussi l'inclinaison
 de celui-ci au sur-apprentissage. Ceci est observable sur la figure \ref{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre} et \ref{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre} où une valeur plus élevée de cet hyperparamètre entraine une augmentation de l'erreur de validation indiquant un sur-apprentissage.
 
-\begin{wrapfigure}[15]{r}{0.45\textwidth}
-\vspace{-7pt}
+\begin{figure}
+\centering
 \includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
 \caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
 \label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
-\end{wrapfigure}
+\end{figure}
 
-\begin{wrapfigure}[17]{r}{0.45\textwidth}
-\vspace{-7pt}
+\begin{figure}
+\centering
 \includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
 \caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
 \label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
-\end{wrapfigure}
+\end{figure}
 
 Une augmentation du nombre minimal d'observation par feuille implique une
 diminution de la capacité du modèle. Sans controller la profondeur maximale de
@@ -248,12 +251,12 @@ MNIST HP: Nombre d'observation minimale par feuille} où les erreurs
 d'entrainement et de validation se rapproche lorsque que le nombre minimale
 d'exemplaire augmente.
 
-\begin{wrapfigure}[17]{r}{0.45\textwidth}
-\vspace{-7pt}
+\begin{figure}
+\centering
 \includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
 \caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
 \label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
-\end{wrapfigure}
+\end{figure}
 
 Les arbres de décisions sont des modèles à très forte capacité et la profondeur
 maximale est définitivement l'hyper-paramètre contrôlant le mieux la capacité
@@ -262,19 +265,31 @@ du modèle.
 
 # Perceptron multi-couche
 
-Le perceptron multi-couche ne convergait pas sur les données de salaire.
+Le perceptron multi-couche ne convergait pas sur les données de salaire. Nous
+avons tout de même essayé plusieurs architectures, régularisations et même
+l'ajout de couches cachées.
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{figure}
+\centering
 \includegraphics[width=0.48\textwidth]{figures/multilayer-perceptron-salary-learning-curve-epoch.png}
-\end{wrapfigure}
+\end{figure}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+La descente en escalier est typique de la régularisation Dropout: à chaque fois
+qu'un neurone est neutralisé, la rétro-propagation tente de trouver une
+nouvelle façon de faire baisser la perte.
+
+\begin{figure}
+\centering
 \includegraphics[width=0.48\textwidth]{figures/multilayer-perceptron-mnist-learning-curve-epoch.png}
-\end{wrapfigure}
+\end{figure}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+Tel qu'anticipé, les réseaux de neurones convolutifs sont très performant et
+convergent rapidement.
+
+\begin{figure}
+\centering
 \includegraphics[width=0.48\textwidth]{figures/convolutional-neural-network-mnist-learning-curve-epoch.png}
-\end{wrapfigure}
+\end{figure}
 
 # Résultats finaux
 
