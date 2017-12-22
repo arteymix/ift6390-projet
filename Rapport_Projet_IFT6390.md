@@ -166,6 +166,7 @@ modèles de la manière suivante:
 \vspace{-10pt}
 \includegraphics[width=0.43\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le paramètre $\lambda$ sur les données de salaire}
+\vspace{-10pt}
 \end{wrapfigure}
 
 Nous remarquons que la variante mixte performe particulièrement bien sur les
@@ -191,6 +192,7 @@ modèles Bayésiens ont une très faible capacité.
 \centering
 \includegraphics[width=0.43\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le lissage Laplacien sur les données de salaire}
+\vspace{-10pt}
 \end{wrapfigure}
 
 Puisque le classifieur de Bayes naïf fait l'hypothèse d'indépendance, si dans
@@ -204,10 +206,11 @@ soit pas significatif par rapport à la valeur de compte la plus faible observé
 avant le lissage.
 
 \begin{wrapfigure}{r}{0.45\textwidth}
-\vspace{-40pt}
+\vspace{-10pt}
 \centering
 \includegraphics[width=0.43\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien à noyau Bernoulli sur MNIST}
+\vspace{-10pt}
 \end{wrapfigure}
 
 Pour les données de MNIST, nous avons testé le classifieur de Bayes à noyau
@@ -288,9 +291,11 @@ du modèle.
 # Perceptron multi-couche
 
 \begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-10pt}
 \includegraphics[width=0.48\textwidth]{figures/multilayer-perceptron-salary-learning-curve-epoch.png}
 \caption{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire}
 \label{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire}
+\vspace{-10pt}
 \end{wrapfigure}
 
 Le perceptron multi-couche ne convergait pas sur les données de salaire. Nous
@@ -329,9 +334,8 @@ applique un réseau de neurones traditionnel.
 \end{figure}
 
 Un des avantages de ce type de modèles est qu'il réutilise les même poids pour
-chaque noyau de convolution, ce qui réduit considérablement le temps
-d'entraînement et il peut exploiter les caractéristiques de localité de
-l'image.
+chaque noyau de convolutions, ce qui réduit considérablement le temps
+d'entraînement permet d'exploiter les caractéristiques de localité de l'image.
 
 # Résultats finaux et discussion
 
@@ -379,13 +383,14 @@ avg/total  0.73       0.76       0.74       16281
 Table:  (*Rapport de classification DT*, **Test**) \label{RappClassTest}
 
 Les critères utilisés pour la selection des tests aux noeuds de l'arbre
-supposent souvent une distribution uniforme des exemplaires y étant traités. Ainsi, un
-déséquilibre entre la fréquence de chaque classe à un noeud pourrait entrainer une
-préférence des tests pour une classe en particulier. C'est peut-être ce que nous
-observons avec les données de prédiction de salaires. L'utilisation de l'enthropie
-décentrée [@ArbreDeseq] comme mesure de désordre serait une solution potentielle à étudier
-dans une analyse subséquente de cet échantillon puisque cette méthode pondère
-en fonction de l'importance de chaque classe aux noeuds.
+supposent souvent une distribution uniforme des classes des exemplaires y étant
+traités. Ainsi, un déséquilibre entre la fréquence de chaque classe à un noeud
+pourrait entrainer une préférence des tests pour une classe en particulier.
+C'est peut-être ce que nous observons avec les données de prédiction de
+salaires. L'utilisation de l'enthropie décentrée [@ArbreDeseq] comme mesure de
+désordre serait une solution potentielle à étudier dans une analyse subséquente
+de cet échantillon puisque cette méthode pondère en fonction de l'importance de
+chaque classe aux noeuds.
 
 Il serait aussi intéressant de discrétiser les attributs continus pour tester
 nos classifieur de Bayes et arbres de décision sur des attributs discrets
@@ -461,5 +466,5 @@ présentation du projet et du rapport. Nous avons fait l'analyse exploratoire de
 \centerline{\includegraphics[width=0.9\paperwidth]{figures/salary-pair-plot.png}}
   \captionof{figure}{Analyse par paires d'attributs continus}
   \label{Analyse par paires d'attributs continus}
-  
+
 # Références
