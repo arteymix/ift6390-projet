@@ -84,7 +84,7 @@ Nous avons choisis de considérer que l'entrée *Education* et de laisser tomber
 traiterons donc douze (12) attributs.
 
 Pour traiter ces attributs, il est d'abord important de prendre une décision en
-ce qui a trait à l'imputation données manquantes. Puisque les algorithmes de
+ce qui a trait à l'imputation des données manquantes. Puisque les algorithmes de
 type arbres de décisions et classifieur de Bayes ne prennent pas de données
 manquantes, nous avons choisis de faire les remplacements suivants :
 
@@ -179,12 +179,12 @@ n'est actif que lorsque les attributs sont catégoriels. Ainsi plus d'informatio
 implique plus de performance.
 
 La mauvaise performance du noyau Bernoulli est potentiellement explicable par le
-fait que les entrées du vecteur *"one-hot"* sont mutuellement exclusive et donc
+fait que les entrées du vecteur *"one-hot"* sont mutuellement exclusives et donc
 corrélées ce qui pose problème avec notre utilisation du classifieur naïf.
 
 L'autre aspect intéressant est que sa courbe d'apprentissage est identique pour
 l'entraînement et la validation, ce qui est cohérent avec le fait que les
-modèles Bayésiens on une très faible capacité.
+modèles Bayésiens ont une très faible capacité.
 
 \begin{wrapfigure}{r}{0.45\textwidth}
 \vspace{-10pt}
@@ -196,10 +196,10 @@ modèles Bayésiens on une très faible capacité.
 Puisque le classifieur de Bayes naïf fait l'hypothèse d'indépendance, si dans
 un sous-ensemble au moins une valeur possible d'un des attributs n'est pas
 observée, le calcul du produit des densités sur chaque dimensions de l'entrée
-retournera zéro (0) et l'entré en question perdra tout sont poids dans le
+retournera zéro (0) et l'entrée en question perdra tout son poids dans le
 calcul. Pour contourner ce problème, nous utilisons le lissage Laplacien. Cette
 méthode ajoute simplement une constante $\Delta$ à tous les comptes lors du
-calcul de fréquence de chaque classe. Il est très important que cet ajout ne
+calcul de la fréquence de chaque classe. Il est très important que cet ajout ne
 soit pas significatif par rapport à la valeur de compte la plus faible observée
 avant le lissage.
 
@@ -218,7 +218,8 @@ valeurs binaires. Le taux de bonnes classifications est particulièrement fort:
 Nous sommes portés à croire que puisque les images sont centrée et normalisée,
 les similarités entre les exemplaires d'une même classe se traduisent par un
 ensemble de pixels communs assez stable. Cette signature est facilement
-reconnue par une distribution conjointe de succès.
+reconnue par une distribution conjointe de succès. Cette particularité sera
+discutée plus en détails dans la dernière section.
 
 # Arbres de décisions
 
@@ -297,16 +298,16 @@ avons tout de même essayé plusieurs architectures, régularisations et même
 l'ajout de couches cachées. Les résultats de la figure \ref{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire}
 illustre bien que le réseau ne s'améliore pas vraiment au fur et à mesure des époques.
 
-La descente en escalier de la figure \ref{perceptron multi-couches} semble être liée à la régularisation Dropout: à chaque
-fois qu'un neurone est neutralisé (i.e. la perte stagne), la rétro-propagation
-tente de trouver une nouvelle façon de faire baisser la perte.
-
+La descente en escalier de la figure \ref{perceptron multi-couches} semble être
+liée à la régularisation Dropout: à chaque fois qu'un neurone est neutralisé
+(i.e. la perte stagne), la rétro-propagation tente de trouver une nouvelle façon
+de faire baisser la perte.
 
 Tel qu'anticipé, le réseau de neurones convolutif est très performant et
 convergent rapidement. L'approche est très intéressante: $k$ noyaux de
 convolution sont appliqués sur chaque région de l'image pour former un ensemble
 de représentation intermédiaire en ensuite une mise en commun (*pooling*) est
-effectué pour écraser ces features dans une représentation compacte. Ensuite,
+effectué pour écraser ces attributs dans une représentation compacte. Ensuite,
 la représentation en 2 dimensions est transformée en un vecteur sur lequel on
 applique un réseau de neurones traditionnel.
 
@@ -328,14 +329,14 @@ applique un réseau de neurones traditionnel.
 \end{figure}
 
 Un des avantages de ce type de modèles est qu'il réutilise les même poids pour
-chaque noyau de convolutions, ce qui réduit considérablement le temps
+chaque noyau de convolution, ce qui réduit considérablement le temps
 d'entraînement et il peut exploiter les caractéristiques de localité de
 l'image.
 
 # Résultats finaux et discussion
 
-Les tableaux suivants corresponent aux valeurs de précision sur les ensembles
-de validation et de test.
+Les tableaux suivants correspondent aux valeurs de précision sur les ensembles
+de validation et de test pour les données de prédiction de salaires.
 
 Salary                  Validation Test
 -----                   ---------- ----
@@ -346,7 +347,7 @@ Perceptron multi-couche 75.45%     76.37%
 Table: (*Résultats finaux Prédiction de salaire*) \label{Résultats finaux Prédiction de salaire}
 
 En générale, on remarque que les modèles utilisés n'ont pas très bien performé
-en test. Ceci est très surprenant pour le modèle de Bayes qui ne devrait pas
+à l'étape de test. Ceci est très surprenant pour le modèle de Bayes qui ne devrait pas
 avoir souffert de sur-apprentissage.
 
 Nous observons que l'échantillon complet recuilli est déséquilibré,
@@ -377,11 +378,11 @@ avg/total  0.73       0.76       0.74       16281
 
 Table:  (*Rapport de classification DT*, **Test**) \label{RappClassTest}
 
-Puisque les critères utilisés pour la selection des tests aux noeuds de l'arbre
-suppose souvent une distribution uniforme des exemplaires y étant traités, un
-déséquilibre entre la fréquence de chaque classe pourrait entrainer une
+Les critères utilisés pour la selection des tests aux noeuds de l'arbre
+supposent souvent une distribution uniforme des exemplaires y étant traités. Ainsi, un
+déséquilibre entre la fréquence de chaque classe à un noeud pourrait entrainer une
 préférence des tests pour une classe en particulier. C'est peut-être ce que nous
-observons avec les données de prédiction de salaire. L'utilisation de l'enthropie
+observons avec les données de prédiction de salaires. L'utilisation de l'enthropie
 décentrée [@ArbreDeseq] comme mesure de désordre serait une solution potentielle à étudier
 dans une analyse subséquente de cet échantillon puisque cette méthode pondère
 en fonction de l'importance de chaque classe aux noeuds.
@@ -398,8 +399,9 @@ neurones ne sont pas très sensible aux problèmes de sur-apprentissage. En
 analysant la figure \ref{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire},
 il ne semble pas que d'augmenter le nombre d'époque est le moindre effet sur
 la précision du réseau. Les résultats de la table \ref{Résultats finaux Prédiction de salaire}
-mette en évidence le même type de problème conformément à la répartition des
-classes dans l'échantillon initial.
+mettent en évidence le même type de problème conformément à la répartition des
+classes dans l'échantillon initial en ce qui a trait à la précision des réseaux
+de neurones.
 
 Pour ce qui est des résultats sur MNIST, la performance obtenue est relativement
 conforme à notre intuition.
@@ -434,25 +436,23 @@ La position et l'échelle n'est pas aussi significatif pour les réseaux
 convolutifs qui analyse de petites fenêtres de l'image. Ceux-ci pourraient fort probablement
 déceler les subtilités des caractères mêmes si leur taille ou positionnement
 n'est pas constant. Leur faible sensibilité aux variations de ces deux facteurs
-explique en partie leur performance plus élevée que les réseaux de neuronnes MLP.
+explique peut-être en partie leur performance plus élevée que les réseaux de
+neuronnes de type MLP.
 
 Nous avions prévu tester la performance d'arbres de décision dont les noeuds prennent
 une décision en fonction d'une combinaison linéaire des attributs obtenue par
 une PCA. Le temps nous ayant malheureusement manqué, il serait très intéressant
 de tester ce type d'algorithme dans un projet subséquent. Nous espérons ainsi
-augmenter la performance de ces arbres sur des échantillons tels la prédiction
+augmenter la performance de ces arbres sur des échantillons semblable à la prédiction
 de salaire où ces algorithmes semblent souffir de sur-apprentissage.
 
 # Répartition
 
 Guillaume s'est occupé de la programmation et Gabriel de la rédaction de la
-présentation du projet et du rapport.
-
-Nous avons fait l'analyse exploratoire des données ensemble.
+présentation du projet et du rapport. Nous avons fait l'analyse exploratoire des données ensemble.
 
 # Annexe
 \label{annexe}
-
 \centerline{\includegraphics[width=0.9\paperwidth]{figures/salary-pair-plot.png}}
   \captionof{figure}{Analyse par paires d'attributs continus}
   \label{Analyse par paires d'attributs continus}
