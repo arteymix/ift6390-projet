@@ -219,19 +219,21 @@ reconnue par une distribution conjointe de succès.
 
 # Arbres de décisions
 
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-20pt}
+\centering
+\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
+\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
+\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
+\vspace{-20pt}
+\end{wrapfigure}
+
 L'utilisation des arbres de décision est habituellement appropriée dans le cas
 de données dont les attributs présentent des caractéristiques de haut niveau.
 Les données de prédiction de salaires présentent de tels attributs, mais les
 points de MNIST (en niveaux de gris) n'ont pas une représentation de haut
 niveau ce qui explique peut-être la faible performance de cet algorithme pour
 la classification des images.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
-\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
-\end{figure}
 
 Modifier la profondeur maximale permet de contrôler la capacité et la
 propension de l'algorithme au sur-apprentissage. Ceci est observable sur les
