@@ -453,11 +453,13 @@ présentation du projet et du rapport. Nous avons fait l'analyse exploratoire de
 
 # Annexe
 \label{annexe}
+
+\centerline{\includegraphics[width=1.0\paperwidth]{figures/salary-count-plot.png}}
+  \captionof{figure}{Histogramme des données catégorielles en fonction de la cible associée}
+  \label{Histogramme des données catégorielles en fonction de la cible associée}
+
 \centerline{\includegraphics[width=0.9\paperwidth]{figures/salary-pair-plot.png}}
   \captionof{figure}{Analyse par paires d'attributs continus}
   \label{Analyse par paires d'attributs continus}
-  \centerline{\includegraphics[width=1.0\paperwidth]{figures/salary-count-plot.png}}
-    \captionof{figure}{Histogramme des données catégorielles en fonction de la cible associée}
-    \label{Histogramme des données catégorielles en fonction de la cible associée}
-
+  
 # Références
