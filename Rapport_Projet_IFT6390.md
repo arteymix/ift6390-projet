@@ -29,16 +29,20 @@ perceptron multi-couche. Nous explorerons différents pré-traitement pour
 mesurer les gains possibles lorsque combinés avec un modèle traditionnel de
 classification. Notre intuition nous porte à croire que les méthodes de types
 arbres de décision et classifieur de Bayes seront plus efficaces sur les
-prédictions de salaire que sur MNIST. Cette intuition est justifiée par le fait
-que les attributs pour les salaires sont plus clairement scindés. Pour
-contourner le fait que certains des attributs de l'échantillon de prédiction de
-salaire sont de type catégorielle, nous prévoyons effectué une transformation
-de type \textit{one-hot} et ainsi considérer des vecteurs numériques plutôt que des
+prédictions de salaire que sur MNIST. Nous expérimentons aussi avec un modèle
+de Bayes mixte. Cette intuition est justifiée par le fait que les attributs
+pour les salaires sont plus clairement scindés. Pour contourner le fait que
+certains des attributs de l'échantillon de prédiction de salaire sont de type
+catégorielle, nous prévoyons effectué une transformation de type
+\textit{one-hot} et ainsi considérer des vecteurs numériques plutôt que des
 classes.
 \end{abstract}
 
 # Analyses préliminaires
-Les attributs de l'échantillons de prévision de salaires étaient au nombre de treize (13) et étaient séparables en attributs catégoriels et attributs continus :
+
+Les attributs de l'échantillons de prévision de salaires étaient au nombre de
+treize (13) et étaient séparables en attributs catégoriels et attributs
+continus :
 
 **Continus**
 
@@ -79,7 +83,16 @@ tel que discuté dans le résumé, en vecteur *"one-hot"*. Nous obtenons donc un
 total de 99 attributs binaires, cinq (5) attributs continues et une (1) valeur
 binaire pour la sortie (ou cible).
 
-Les graphiques suivants montrent que la tâches de classification des données de salaires n'est pas triviale. En effet, pour les attributs continus (figure \ref{Analyse par paires d'attributs continus}), une analyse par paires d'attributs ne permet pas d'entrevoir la possibilité d'une séparabilité linéaire des données. La même hypothèse est faites en observant les histogrammes correspondants aux attributs catégoriels (figure \ref{Histogramme des données catégorielles en fonction de la cible associée}) puisqu'aucun attribut ne permet de séparer parfaitement les entrées. Quelques valeurs des attributs catégoriels semblent permettre de trancher, ceci laisse croire que l'utilisation d'arbre de décision est justifiée.
+Les graphiques suivants montrent que la tâches de classification des données de
+salaires n'est pas triviale. En effet, pour les attributs continus (figure
+\ref{Analyse par paires d'attributs continus}), une analyse par paires
+d'attributs ne permet pas d'entrevoir la possibilité d'une séparabilité
+linéaire des données. La même hypothèse est faites en observant les
+histogrammes correspondants aux attributs catégoriels (figure \ref{Histogramme
+des données catégorielles en fonction de la cible associée}) puisqu'aucun
+attribut ne permet de séparer parfaitement les entrées. Quelques valeurs des
+attributs catégoriels semblent permettre de trancher, ceci laisse croire que
+l'utilisation d'arbre de décision est justifiée.
 
 \begin{figure}[h!]
 \centerline{\includegraphics[width=1.0\paperwidth]{figures/salary-count-plot.png}}
@@ -93,8 +106,6 @@ Les graphiques suivants montrent que la tâches de classification des données d
   \label{Analyse par paires d'attributs continus}
 \end{figure}
 
-
-
 # Méthodologie
 
 Les données de salaire ont été imputés avec le mode pour les caractéristiques
@@ -103,9 +114,9 @@ catégoriques et la moyenne pour celles continues.
 Nous avons utilisé les bibliothèques scikit-learn [@scikit-learn] et Keras
 [@chollet2015keras].
 
-Toutes les opérations ont été effectuées à l'aide d'un
-`Pipeline`[^sklearn.pipeline.Pipeline] qui permet d'assembler les opérations
-(i.e. imputation, codage *"one-hot"*) dans une chaîne de montage.
+Toutes les opérations ont été effectuées à l'aide d'un `Pipeline`[^sklearn.pipeline.Pipeline]
+qui permet d'assembler les opérations (i.e. imputation, codage *"one-hot"*)
+dans une chaîne de montage.
 
 [^sklearn.pipeline.Pipeline]: http://scikit-learn.org/0.18/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline
 
@@ -115,17 +126,17 @@ a été utilisée pour déterminer les meilleurs hyper-paramètres. Nous avons
 
 [^sklearn.model_selection.GridSearchCV]: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
 
-Les réseaux de neurones ont été hyper-paramétré à la main et seulement l'époque
-optimale a été déterminée par validation croisée.
+Les réseaux de neurones ont été hyper-paramétré manuellement et seulement
+l'époque optimale a été déterminée par validation croisée.
 
 Nous avons utilisé l'algorithme Adadelta [@DBLP:journals/corr/abs-1212-5701]
 pour faire l'optimisation qui utilise une moyenne exponentielle des gradients
-des étapes précédents.
+des étapes précédentes.
 
 Nous avons également favorisé l'approche Dropout (Srivastava et al. 2014) au
-lieu des régularisations L1/L2 puisqu'elle semblait bien fonctionner. Cette
-méthode consiste à rendre inneffective une proportion aléatoire d'unités dans
-une couche de neurones.
+lieu des régularisations L1/L2 puisqu'elle semblait bien fonctionner
+empiriquement. Cette méthode consiste à rendre inneffective une proportion
+aléatoire d'unités dans une couche de neurones.
 
 Les courbes d'apprentissages affichent l'erreur de classification en fonction
 de la valeur d'un hyper-paramètre en considérant les valeurs des autres
@@ -136,9 +147,9 @@ le minimum observé correspond au vrai minimum.
 
 Nous avons expérimenté trois variantes du classifieurs de Bayes:
 
-- Noyau Gaussien,
-- Bernoulli,
-- Variante mixte.
+- noyau Gaussien;
+- noyeau de Bernoulli;
+- variante mixte.
 
 La variante mixte combine les log-probabilité à postériori de chacun des
 modèles de la manière suivante:
@@ -178,20 +189,23 @@ modèles Bayésiens on une très faible capacité.
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le lissage Laplacien sur les données de salaire}
 \end{figure}
 
-\begin{figure}
+Puisque le classifieur de Bayes naïf fait l'hypothèse d'indépendance, si dans
+un sous-ensemble au moins une valeur possible d'un des attributs n'est pas
+observée, le calcul du produit des densités sur chaque dimensions de l'entrée
+retournera zéro (0) et l'entré en question perdra tout sont poids dans le
+calcul. Pour contourner ce problème, nous utilisons le lissage Laplacien. Cette
+méthode ajoute simplement une constante $\Delta$ à tous les comptes lors du
+calcul de fréquence de chaque classe. Il est très important que cet ajout ne
+soit pas significatif par rapport à la valeur de compte la plus faible observée
+avant le lissage.
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-20pt}
 \centering
 \includegraphics[width=0.43\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien à noyau Bernoulli sur MNIST}
-\end{figure}
-
-Puisque le classifieur de Bayes que nous utilisons est naïf, si dans un sous-ensemble
-au moins une valeur possible d'un des attributs n'est pas observée, le calcul du
-produit des densités sur chaque dimensions de l'entrée retournera zéro (0) et
-l'entré en question perdra tout sont poids dans le calcul. Pour contourner ce
-problème, nous utilisons le lissage Laplacien. Cette méthode ajoute simplement
-une constante $\Delta$ à tous les comptes lors du calcul de fréquence de chaque
-classe. Il est très important que cet ajout ne soit pas significatif par rapport
-à la valeur de compte la plus faible observée avant le lissage.
+\vspace{-20pt}
+\end{wrapfigure}
 
 Pour les données de MNIST, nous avons testé le classifieur de Bayes à noyau
 Gaussien ainsi que celui de Bernoulli en arrondissant les degrés de gris à des
@@ -274,9 +288,9 @@ l'ajout de couches cachées.
 \includegraphics[width=0.48\textwidth]{figures/multilayer-perceptron-salary-learning-curve-epoch.png}
 \end{figure}
 
-La descente en escalier est typique de la régularisation Dropout: à chaque fois
-qu'un neurone est neutralisé, la rétro-propagation tente de trouver une
-nouvelle façon de faire baisser la perte.
+La descente en escalier semble être liée à la régularisation Dropout: à chaque
+fois qu'un neurone est neutralisé (i.e. la perte stagne), la rétro-propagation
+tente de trouver une nouvelle façon de faire baisser la perte.
 
 \begin{figure}
 \centering
@@ -302,9 +316,9 @@ Bayes naïf mixte        83.81%     73.01%
 Arbres de décisions     85.57%     75.82%
 Perceptron multi-couche 75.45%     76.37%
 
-En générale, on remarque que les modèles utilisés n'ont pas très bien
-fonctionné sur la classification de données de salaire puisque la précision est
-très proche de la répartition des classes.
+En générale, on remarque que les modèles utilisés n'ont pas très bien performé
+en test, ce qui est très surprenant pour le modèle de Bayes qui ne devrait pas
+avoir souffert de sur-apprentissage.
 
 MNIST                         Validation Test
 -----                         ---------- ----
@@ -313,6 +327,14 @@ Bayes naïf de Bernoulli       83.18%     83.36%
 Arbres de décisions           86.19%     87.37%
 Perceptron multi-couche       96.93%     96.86%
 Réseau de neurones convolutif 98.77%     98.87%
+
+En général, les modèle ont bien performé sur l'ensemble MNIST. Nous sommes
+étonnés de voir l'erreur de test diminuer pour les arbres de décision, quoique
+le taux de classification n'est peut-être pas suffisament élevé pour que ce
+soit significatif.
+
+Les modèles de réseaux de neurones ont très bien conservé leur performance
+assez élevée sur cet ensemble de données.
 
 # Répartition
 
