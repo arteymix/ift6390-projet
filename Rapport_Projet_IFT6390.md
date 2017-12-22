@@ -286,6 +286,7 @@ l'ajout de couches cachées.
 \begin{figure}
 \centering
 \includegraphics[width=0.48\textwidth]{figures/multilayer-perceptron-salary-learning-curve-epoch.png}
+\caption{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire}
 \end{figure}
 
 La descente en escalier semble être liée à la régularisation Dropout: à chaque
@@ -295,15 +296,29 @@ tente de trouver une nouvelle façon de faire baisser la perte.
 \begin{figure}
 \centering
 \includegraphics[width=0.48\textwidth]{figures/multilayer-perceptron-mnist-learning-curve-epoch.png}
+\caption{Courbe d'apprentissage du perceptron multi-couches sur MNIST}
 \end{figure}
 
-Tel qu'anticipé, les réseaux de neurones convolutifs sont très performant et
-convergent rapidement.
-
-\begin{figure}
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-20pt}
 \centering
 \includegraphics[width=0.48\textwidth]{figures/convolutional-neural-network-mnist-learning-curve-epoch.png}
-\end{figure}
+\caption{Courbe d'apprentissage du réseau de neurone convolutif sur MNIST}
+\vspace{-10pt}
+\end{wrapfigure}
+
+Tel qu'anticipé, le réseau de neurones convolutif est très performant et
+convergent rapidement. L'approche est très intéressante: $k$ noyeaux de
+convolution sont appliqués sur chaque région de l'image pour former un ensemble
+de représentation intermédiaire en ensuite une mise en commun (*pooling*) est
+effectué pour écraser ces features dans une représentation compacte. Ensuite,
+la représentation en 2 dimensions est ramené à un vecteur sur lequel on
+applique un réseau de neurones traditionnel.
+
+Un des avantages de ce type de modèles est qu'il réutilise les même poids pour
+chaque noyau de convolutions, ce qui réduit considérablement le temps
+d'entraînement et il peut exploiter les caractéristiques de localité de
+l'image.
 
 # Résultats finaux
 
