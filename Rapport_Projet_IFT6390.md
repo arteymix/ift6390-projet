@@ -100,6 +100,9 @@ Les graphiques suivants montrent que la tâches de classification des données d
 Les données de salaire ont été imputés avec le mode pour les caractéristiques
 catégoriques et la moyenne pour celles continues.
 
+Nous avons utilisé les bibliothèques scikit-learn[@scikit-learn] et
+Keras[@chollet2015keras].
+
 Toutes les opérations ont été effectuées à l'aide d'un
 `Pipeline`[^sklearn.pipeline.Pipeline] qui permet d'assembler les opérations
 (i.e. imputation, codage *"one-hot"*) dans une chaîne de montage.
@@ -140,9 +143,9 @@ Nous avons expérimenté trois variantes du classifieurs de Bayes:
 La variante mixte combine les log-probabilité à postériori de chacun des
 modèles de la manière suivante:
 
-\begin{align}
+\begin{align*}
 \log \Pr[c|X_{cat}, X_{cont}] = \lambda (\log \Pr[c|X_{cat}]) + (1 - \lambda) (\log \Pr[c|X_{cont}])
-\end{align}
+\end{align*}
 
 \begin{wrapfigure}{r}{0.45\textwidth}
 \includegraphics[width=0.43\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
