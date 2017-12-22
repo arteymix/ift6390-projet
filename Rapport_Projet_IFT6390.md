@@ -16,6 +16,9 @@ header-includes:
  - \usepackage[final]{nips_2017}
  - \usepackage{wrapfig}
  - \usepackage{graphicx}
+ - \usepackage{caption}
+ - \usepackage{multicol}
+ - \usepackage{subcaption}
 lang: fr
 ---
 
@@ -44,25 +47,37 @@ Les attributs de l'échantillons de prévision de salaires étaient au nombre de
 treize (13) et étaient séparables en attributs catégoriels et attributs
 continus :
 
-**Continus**
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+      \textbf{Continus}
+        \begin{itemize}
+          \item Age
+          \item Financial weighted
+          \item Capital gains
+          \item Capital loss
+          \item Hours per week
+        \end{itemize}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[t]{0.5\textwidth}
+      \textbf{Catégoriels}
+        \begin{itemize}
+          \item Work class
+          \item Education
+          \item Education code
+          \item Marital status
+          \item Occupation
+          \item Relationship
+          \item Race
+          \item Sex
+          \item Native country
+        \end{itemize}
+      \end{subfigure}
+\end{figure}
 
-- Age
-- Financial weighted
-- Capital gains
-- Capital loss
-- Hours per week
 
-**Catégoriels**
 
-- Work class
-- Education
-- Education code
-- Marital status
-- Occupation
-- Relationship
-- Race
-- Sex
-- Native country
 
 Nous avons choisis de considérer que l'entrée *Education* et de laisser tomber
 *Education code*, puisque les deux font référence à la même chose. Nous
@@ -83,7 +98,7 @@ tel que discuté dans le résumé, en vecteur *"one-hot"*. Nous obtenons donc un
 total de 99 attributs binaires, cinq (5) attributs continues et une (1) valeur
 binaire pour la sortie (ou cible).
 
-Les graphiques suivants montrent que la tâches de classification des données de
+Les figures en annexes montrent que la tâches de classification des données de
 salaires n'est pas triviale. En effet, pour les attributs continus (figure
 \ref{Analyse par paires d'attributs continus}), une analyse par paires
 d'attributs ne permet pas d'entrevoir la possibilité d'une séparabilité
@@ -94,17 +109,6 @@ attribut ne permet de séparer parfaitement les entrées. Quelques valeurs des
 attributs catégoriels semblent permettre de trancher, ceci laisse croire que
 l'utilisation d'arbre de décision est justifiée.
 
-\begin{figure}[h!]
-\centerline{\includegraphics[width=1.0\paperwidth]{figures/salary-count-plot.png}}
-  \caption{Histogramme des données catégorielles en fonction de la cible associée}
-  \label{Histogramme des données catégorielles en fonction de la cible associée}
-\end{figure}
-
-\begin{figure}[h!]
-\centerline{\includegraphics[width=0.9\paperwidth]{figures/salary-pair-plot.png}}
-  \caption{Analyse par paires d'attributs continus}
-  \label{Analyse par paires d'attributs continus}
-\end{figure}
 
 # Méthodologie
 
@@ -159,10 +163,9 @@ modèles de la manière suivante:
 \end{align*}
 
 \begin{wrapfigure}{r}{0.45\textwidth}
-\vspace{-20pt}
+\vspace{-10pt}
 \includegraphics[width=0.43\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-lambda.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le paramètre $\lambda$ sur les données de salaire}
-\vspace{-20pt}
 \end{wrapfigure}
 
 Nous remarquons que la variante mixte performe particulièrement bien sur les
@@ -183,11 +186,12 @@ L'autre aspect intéressant est que sa courbe d'apprentissage est identique pour
 l'entraînement et la validation, ce qui est cohérent avec le fait que les
 modèles Bayésiens on une très faible capacité.
 
-\begin{figure}
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-10pt}
 \centering
 \includegraphics[width=0.43\textwidth]{figures/mixed-naive-bayes-salary-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien mixte pour le lissage Laplacien sur les données de salaire}
-\end{figure}
+\end{wrapfigure}
 
 Puisque le classifieur de Bayes naïf fait l'hypothèse d'indépendance, si dans
 un sous-ensemble au moins une valeur possible d'un des attributs n'est pas
@@ -200,11 +204,10 @@ soit pas significatif par rapport à la valeur de compte la plus faible observé
 avant le lissage.
 
 \begin{wrapfigure}{r}{0.45\textwidth}
-\vspace{-20pt}
+\vspace{-40pt}
 \centering
 \includegraphics[width=0.43\textwidth]{figures/bernoulli-naive-bayes-mnist-learning-curve-alpha.png}
 \caption{Courbe d'apprentissage du classifieur Bayésien à noyau Bernoulli sur MNIST}
-\vspace{-20pt}
 \end{wrapfigure}
 
 Pour les données de MNIST, nous avons testé le classifieur de Bayes à noyau
@@ -219,14 +222,41 @@ reconnue par une distribution conjointe de succès.
 
 # Arbres de décisions
 
-\begin{wrapfigure}{r}{0.45\textwidth}
-\vspace{-20pt}
-\centering
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
-\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
-\vspace{-20pt}
-\end{wrapfigure}
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/decision-tree-salary-learning-curve-max-depth.png}
+      \captionof{figure}{HP: Profondeur de l'arbre}
+      \label{SALAIRE HP: Profondeur de l'arbre}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[t]{0.5\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
+      \captionof{figure}{HP: Nombre d'observation minimale par feuille}
+      \label{SALAIRE HP: Nombre d'observation minimale par feuille}
+      \end{subfigure}
+      \caption{Courbe d'apprentissage pour Arbres de décision sur la prédiction de salaires}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
+      \caption{MNIST HP: Profondeur de l'arbre}
+      \label{MNIST HP: Profondeur de l'arbre}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[t]{0.5\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
+      \caption{MNIST HP: Nombre d'observation minimale par feuille}
+      \label{MNIST HP: Nombre d'observation minimale par feuille}
+      \end{subfigure}
+      \caption{Courbe d'apprentissage pour Arbres de décision sur MNIST}
+\end{figure}
 
 L'utilisation des arbres de décision est habituellement appropriée dans le cas
 de données dont les attributs présentent des caractéristiques de haut niveau.
@@ -237,78 +267,40 @@ la classification des images.
 
 Modifier la profondeur maximale permet de contrôler la capacité et la
 propension de l'algorithme au sur-apprentissage. Ceci est observable sur les
-figures \ref{Courbe d'apprentissage des arbres de décisions sur les données de
-salaire HP: Profondeur de l'arbre} et \ref{Courbe d'apprentissage des arbres de
-décisions sur MNIST HP: Profondeur de l'arbre}. On remarque en fait qu'à partir
+figures \ref{SALAIRE HP: Profondeur de l'arbre} et \ref{MNIST HP: Profondeur de l'arbre}.
+On remarque en fait qu'à partir
 d'une certaine profondeur, l'erreur d'entraînement diminue alors que celle de
 validation stagne, indiquant un sur-apprentissage.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-salary-learning-curve-min-samples-leaf.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
-\label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre d'observation minimale par feuille}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-max-depth.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
-\label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre}
-\end{figure}
 
 Une augmentation du nombre minimal d'observation par feuille implique une
 diminution de la capacité du modèle. À l'extrême, sans limiter la profondeur
 maximale de l'arbre, permettre qu'il n'y ait qu'un exemplaire par feuille
 donnerait un arbre où il existe un chemin menant à chaque exemplaire de
 l'ensemble d'entrainement. Ce cas constiturait un exemple type de
-sur-apprentissage que l'on peut observer aux figures \ref{Courbe
-d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre
-d'observation minimale par feuille} et \ref{Courbe d'apprentissage des arbres
-de décisions sur MNIST HP: Nombre d'observation minimale par feuille}.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figures/decision-tree-mnist-learning-curve-min-samples-leaf.png}
-\caption{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
-\label{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Nombre d'observation minimale par feuille}
-\end{figure}
+sur-apprentissage que l'on peut observer aux figures \ref{SALAIRE HP: Nombre
+d'observation minimale par feuille} et \ref{MNIST HP: Nombre d'observation minimale par feuille}.
 
 Les arbres de décisions sont des modèles à très forte capacité et la profondeur
 maximale est définitivement l'hyper-paramètre contrôlant le mieux la capacité
 du modèle.
 
-
 # Perceptron multi-couche
 
-Le perceptron multi-couche ne convergait pas sur les données de salaire. Nous
-avons tout de même essayé plusieurs architectures, régularisations et même
-l'ajout de couches cachées.
-
-\begin{figure}
-\centering
+\begin{wrapfigure}{r}{0.45\textwidth}
 \includegraphics[width=0.48\textwidth]{figures/multilayer-perceptron-salary-learning-curve-epoch.png}
 \caption{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire}
 \label{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire}
-\end{figure}
+\end{wrapfigure}
 
-La descente en escalier semble être liée à la régularisation Dropout: à chaque
+Le perceptron multi-couche ne convergait pas sur les données de salaire. Nous
+avons tout de même essayé plusieurs architectures, régularisations et même
+l'ajout de couches cachées. Les résultats de la figure \ref{Courbe d'apprentissage du perceptron multi-couches sur les données de salaire}
+illustre bien que le réseau ne s'améliore pas vraiment au fur et à mesure des époques.
+
+La descente en escalier de la figure \ref{perceptron multi-couches} semble être liée à la régularisation Dropout: à chaque
 fois qu'un neurone est neutralisé (i.e. la perte stagne), la rétro-propagation
 tente de trouver une nouvelle façon de faire baisser la perte.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figures/multilayer-perceptron-mnist-learning-curve-epoch.png}
-\caption{Courbe d'apprentissage du perceptron multi-couches sur MNIST}
-\end{figure}
-
-\begin{wrapfigure}{r}{0.45\textwidth}
-\vspace{-20pt}
-\centering
-\includegraphics[width=0.48\textwidth]{figures/convolutional-neural-network-mnist-learning-curve-epoch.png}
-\caption{Courbe d'apprentissage du réseau de neurone convolutif sur MNIST}
-\vspace{-10pt}
-\end{wrapfigure}
 
 Tel qu'anticipé, le réseau de neurones convolutif est très performant et
 convergent rapidement. L'approche est très intéressante: $k$ noyaux de
@@ -317,6 +309,23 @@ de représentation intermédiaire en ensuite une mise en commun (*pooling*) est
 effectué pour écraser ces features dans une représentation compacte. Ensuite,
 la représentation en 2 dimensions est transformée en un vecteur sur lequel on
 applique un réseau de neurones traditionnel.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/multilayer-perceptron-mnist-learning-curve-epoch.png}
+      \caption{\textbf{perceptron multi-couches}}
+      \label{perceptron multi-couches}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[t]{0.5\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/convolutional-neural-network-mnist-learning-curve-epoch.png}
+      \caption{Réseau de neurone \textbf{convolutif}}
+      \end{subfigure}
+      \caption{Courbe d'apprentissage des réseaux de neurones sur MNIST}
+\end{figure}
 
 Un des avantages de ce type de modèles est qu'il réutilise les même poids pour
 chaque noyau de convolutions, ce qui réduit considérablement le temps
@@ -440,5 +449,15 @@ Guillaume s'est occupé de la programmation et Gabriel de la rédaction de la
 présentation du projet et du rapport.
 
 Nous avons fait l'analyse exploratoire des données ensemble.
+
+# Annexe
+\label{annexe}
+
+\centerline{\includegraphics[width=0.9\paperwidth]{figures/salary-pair-plot.png}}
+  \captionof{figure}{Analyse par paires d'attributs continus}
+  \label{Analyse par paires d'attributs continus}
+  \centerline{\includegraphics[width=1.0\paperwidth]{figures/salary-count-plot.png}}
+    \captionof{figure}{Histogramme des données catégorielles en fonction de la cible associée}
+    \label{Histogramme des données catégorielles en fonction de la cible associée}
 
 # Références
