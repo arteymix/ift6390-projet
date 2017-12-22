@@ -100,8 +100,8 @@ Les graphiques suivants montrent que la tâches de classification des données d
 Les données de salaire ont été imputés avec le mode pour les caractéristiques
 catégoriques et la moyenne pour celles continues.
 
-Nous avons utilisé les bibliothèques scikit-learn[@scikit-learn] et
-Keras[@chollet2015keras].
+Nous avons utilisé les bibliothèques scikit-learn [@scikit-learn] et Keras
+[@chollet2015keras].
 
 Toutes les opérations ont été effectuées à l'aide d'un
 `Pipeline`[^sklearn.pipeline.Pipeline] qui permet d'assembler les opérations
@@ -193,7 +193,6 @@ une constante $\Delta$ à tous les comptes lors du calcul de fréquence de chaqu
 classe. Il est très important que cet ajout ne soit pas significatif par rapport
 à la valeur de compte la plus faible observée avant le lissage.
 
-
 Pour les données de MNIST, nous avons testé le classifieur de Bayes à noyau
 Gaussien ainsi que celui de Bernoulli en arrondissant les degrés de gris à des
 valeurs binaires. Le taux de bonnes classifications est particulièrement fort:
@@ -208,10 +207,10 @@ reconnue par une distribution conjointe de succès.
 
 L'utilisation des arbres de décision est habituellement appropriée dans le cas
 de données dont les attributs présentent des caractéristiques de haut niveau.
-Les données de prédiction de salaires présentent de tels attributs mais les
-points de MNIST (en niveaux de gris) n'ont pas une représentation de haut niveau
-ce qui explique peut-être la faible performance de cet algorithme pour la
-classification des images.
+Les données de prédiction de salaires présentent de tels attributs, mais les
+points de MNIST (en niveaux de gris) n'ont pas une représentation de haut
+niveau ce qui explique peut-être la faible performance de cet algorithme pour
+la classification des images.
 
 \begin{figure}
 \centering
@@ -220,10 +219,13 @@ classification des images.
 \label{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre}
 \end{figure}
 
-Controller la profondeur permet de controller la capacité et la propension de
-l'algorithme au sur-apprentissage. Augmenter la profondeur maximale aura pour
-effet d'augmenter la capacité de l'arbre de décision mais aussi l'inclinaison
-de celui-ci au sur-apprentissage. Ceci est observable sur la figure \ref{Courbe d'apprentissage des arbres de décisions sur les données de salaire HP: Profondeur de l'arbre} et \ref{Courbe d'apprentissage des arbres de décisions sur MNIST HP: Profondeur de l'arbre} où une valeur plus élevée de cet hyperparamètre entraine une augmentation de l'erreur de validation indiquant un sur-apprentissage.
+Modifier la profondeur maximale permet de contrôler la capacité et la
+propension de l'algorithme au sur-apprentissage. Ceci est observable sur les
+figures \ref{Courbe d'apprentissage des arbres de décisions sur les données de
+salaire HP: Profondeur de l'arbre} et \ref{Courbe d'apprentissage des arbres de
+décisions sur MNIST HP: Profondeur de l'arbre}. On remarque en fait qu'à partir
+d'une certaine profondeur, l'erreur d'entraînement diminue alors que celle de
+validation stagne, indiquant un sur-apprentissage.
 
 \begin{figure}
 \centering
@@ -240,16 +242,14 @@ de celui-ci au sur-apprentissage. Ceci est observable sur la figure \ref{Courbe 
 \end{figure}
 
 Une augmentation du nombre minimal d'observation par feuille implique une
-diminution de la capacité du modèle. Sans controller la profondeur maximale de
-l'arbre, permettre qu'il n'y ait qu'un exemplaire par feuille implique qu'il
-existera un chemin pour chaque exemplaire de l'ensemble d'entrainement. Ce
-serait le cas ultime de sur-apprentissage dans un arbre de décision. Ce symptôme
-de sur-apprentissage est évident dans les figures \ref{Courbe d'apprentissage
-des arbres de décisions sur les données de salaire HP: Nombre d'observation
-minimale par feuille} et \ref{Courbe d'apprentissage des arbres de décisions sur
-MNIST HP: Nombre d'observation minimale par feuille} où les erreurs
-d'entrainement et de validation se rapproche lorsque que le nombre minimale
-d'exemplaire augmente.
+diminution de la capacité du modèle. À l'extrême, sans limiter la profondeur
+maximale de l'arbre, permettre qu'il n'y ait qu'un exemplaire par feuille
+donnerait un arbre où il existe un chemin menant à chaque exemplaire de
+l'ensemble d'entrainement. Ce cas constiturait un exemple type de
+sur-apprentissage que l'on peut observer aux figures \ref{Courbe
+d'apprentissage des arbres de décisions sur les données de salaire HP: Nombre
+d'observation minimale par feuille} et \ref{Courbe d'apprentissage des arbres
+de décisions sur MNIST HP: Nombre d'observation minimale par feuille}.
 
 \begin{figure}
 \centering
@@ -294,7 +294,7 @@ convergent rapidement.
 # Résultats finaux
 
 Les tableaux suivants corresponent aux valeurs de précision sur les ensembles
-de tests des meilleurs modèle déterminés par le processus de validation.
+de validation et de test.
 
 Salary                  Validation Test
 -----                   ---------- ----
